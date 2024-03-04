@@ -23,6 +23,6 @@ namespace ComercialHermanosCastro.Domain.Models
         public bool Activo { get; set; }
         public DateTime FechaCreacion { get; set; }
         public DateTime FechaEdicion { get; set; }
-        public virtual ICollection<DetalleVentas> DetalleVenta { get; set; }
+        //public virtual ICollection<DetalleVentas> DetalleVenta { get; set; }
     }
 }

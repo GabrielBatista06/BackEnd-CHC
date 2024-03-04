@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using System;
 using ComercialHermanosCastro.DTOs;
 using System.Collections.Generic;
+using ComercialHermanosCastro.Services;
+using ComercialHermanosCastro.Utils;
 
 namespace ComercialHermanosCastro.Controllers
 {
@@ -19,14 +21,29 @@ namespace ComercialHermanosCastro.Controllers
         [HttpGet]
         public async Task<ActionResult<List<ClienteDto>>> Get()
         {
-            var clientes = await _clienteService.GetCliente();
+            //var clientes = await _clienteService.GetCliente();
 
-            if (clientes == null )
+            //if (clientes == null )
+            //{
+            //    return NotFound();
+            //}
+
+            //return clientes;
+
+            var result = new Response<List<ClienteDto>>();
+            try
             {
-                return NotFound();
+                result.status = true;
+                result.value = await _clienteService.GetCliente();
+            }
+            catch (Exception ex)
+            {
+
+                result.status = false;
+                result.msg = ex.Message;
             }
 
-            return clientes;
+            return Ok(result);
 
         }
         [HttpPost]

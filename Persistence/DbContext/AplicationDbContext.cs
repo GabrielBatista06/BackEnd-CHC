@@ -87,10 +87,10 @@ namespace ComercialHermanosCastro.Persistence.DbContext
                     .HasForeignKey(d => d.IdVenta)
                     .HasConstraintName("FK__DetalleVe__idVen__25869641");
 
-                entity.HasOne(d => d.IdClienteNavigation)
-                    .WithMany(p => p.DetalleVenta)
-                    .HasForeignKey(d => d.IdCliente)
-                    .HasConstraintName("FK__DetalleVe__idVen__25869645");
+                //entity.HasOne(d => d.IdClienteNavigation)
+                //    .WithMany(p => p.DetalleVenta)
+                //    .HasForeignKey(d => d.IdCliente)
+                //    .HasConstraintName("FK__DetalleVe__idVen__25869645");
             });
 
             modelBuilder.Entity<Ventas>(entity =>
@@ -124,6 +124,11 @@ namespace ComercialHermanosCastro.Persistence.DbContext
                     .HasForeignKey(d => d.Usuario)
                     .HasConstraintName("FK__DetalleVe__idVen__25869647");
 
+                entity.HasOne(d => d.IdClienteNavigation)
+                .WithMany()
+                .HasForeignKey(d => d.IdCliente)
+                .HasConstraintName("FK__DetalleVe__idVen__25869645");
+
 
             });
 
@@ -146,8 +151,7 @@ namespace ComercialHermanosCastro.Persistence.DbContext
                 entity.HasOne(d => d.IdClienteNavigation)
                     .WithMany()
                     .HasForeignKey(d => d.IdCliente)
-                    .HasConstraintName("FK__DetalleVe__idVen__25869647");
-
+                    .HasConstraintName("FK__Venta__idCliente__3A4CA8FD");
 
             });
 

@@ -18,6 +18,8 @@ namespace ComercialHermanosCastro.Domain.Models
         public int IdVenta { get; set; }
         [ForeignKey("usuario")]
         public int? Usuario { get; set; }
+        [ForeignKey("idCliente")]
+        public int? IdCliente { get; set; }
         public string NumeroDocumento { get; set; }
         public string TipoPago { get; set; }
         public DateTime? FechaRegistro { get; set; }
@@ -25,5 +27,6 @@ namespace ComercialHermanosCastro.Domain.Models
         public DateTime? FechaPago { get; set; }
         public virtual Usuario UsuarioNavigation { get; set; }
         public virtual ICollection<DetalleVentas> DetalleVenta { get; set; }
+        public virtual Cliente IdClienteNavigation { get; set; }
     }
 }

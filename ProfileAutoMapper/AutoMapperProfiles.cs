@@ -15,7 +15,7 @@ namespace ComercialHermanosCastro.ProfileAutoMapper
             CreateMap<Pago, PagoDto>().ReverseMap();
             CreateMap<Producto, ProductoDto>().ForMember(destino =>
                 destino.Precio,
-                opt => opt.MapFrom(origen => Convert.ToString(origen.Precio.Value, new CultureInfo("es-PE")))
+                opt => opt.MapFrom(origen => Convert.ToString(origen.Precio, new CultureInfo("es-PE")))
             ).ForMember(destino =>
             destino.EsActivo,
             opt => opt.MapFrom(origen => origen.EsActivo == true ? 1 : 0));
@@ -33,7 +33,10 @@ namespace ComercialHermanosCastro.ProfileAutoMapper
                 opt => opt.MapFrom(origen => Convert.ToString(origen.Total.Value, new CultureInfo("es-PE")))
                 ).ForMember(destino =>
                 destino.FechaRegistro,
-                opt => opt.MapFrom(origen => origen.FechaRegistro.Value.ToString("dd/MM/yyyy")));
+                opt => opt.MapFrom(origen => origen.FechaRegistro.Value.ToString("dd/MM/yyyy")))
+                .ForMember(destino =>
+                    destino.NombreCliente,
+                    opt => opt.MapFrom(origen => origen.IdClienteNavigation.Nombre));
 
             CreateMap<VentaDto, Ventas>().ForMember(destino =>
                 destino.Total,
@@ -42,17 +45,19 @@ namespace ComercialHermanosCastro.ProfileAutoMapper
                 destino.FechaRegistro,
                 opt => opt.MapFrom(origen => Convert.ToDateTime(origen.FechaRegistro))).ForMember(destino =>
                 destino.FechaPago,
-                opt => opt.MapFrom(origen => Convert.ToDateTime(origen.FechaPago))); ;
+                opt => opt.MapFrom(origen => Convert.ToDateTime(origen.FechaPago))); 
 
             #region DetalleVenta
             CreateMap<DetalleVentas, DetalleVentaDto>()
                 .ForMember(destino =>
                     destino.DescripcionProducto,
                     opt => opt.MapFrom(origen => origen.IdProductoNavigation.Nombre)
-                ).ForMember(destino =>
-                    destino.NombreCliente,
-                    opt => opt.MapFrom(origen => origen.IdClienteNavigation.Nombre)
                 )
+                
+                //.ForMember(destino =>
+                //    destino.NombreCliente,
+                //    opt => opt.MapFrom(origen => origen.IdClienteNavigation.Nombre)
+                //)
                 .ForMember(destino =>
                     destino.Precio,
                     opt => opt.MapFrom(origen => Convert.ToString(origen.Precio.Value, new CultureInfo("es-PE")))
@@ -83,7 +88,7 @@ namespace ComercialHermanosCastro.ProfileAutoMapper
                     opt => opt.MapFrom(origen => origen.IdClienteNavigation.Apellidos)
                 ).ForMember(destino =>
                     destino.Total,
-                    opt => opt.MapFrom(origen => Convert.ToString(origen.Total.Value, new CultureInfo("es-PE")))
+                    opt => opt.MapFrom(origen => Convert.ToString(origen.Total, new CultureInfo("es-PE")))
                 ).ForMember(destino =>
                     destino.FechaPago,
                     opt => opt.MapFrom(origen => origen.FechaPago.Value.ToString("dd/MM/yyyy"))
@@ -120,11 +125,11 @@ namespace ComercialHermanosCastro.ProfileAutoMapper
                 )
                 .ForMember(destino =>
                     destino.Precio,
-                    opt => opt.MapFrom(origen => Convert.ToString(origen.Precio.Value, new CultureInfo("es-PE")))
+                    opt => opt.MapFrom(origen => Convert.ToString(origen.Precio, new CultureInfo("es-PE")))
                 )
                 .ForMember(destino =>
                     destino.Total,
-                    opt => opt.MapFrom(origen => Convert.ToString(origen.Total.Value, new CultureInfo("es-PE")))
+                    opt => opt.MapFrom(origen => Convert.ToString(origen.Total, new CultureInfo("es-PE")))
                 );
             #endregion Reporte
 

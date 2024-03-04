@@ -72,15 +72,13 @@ namespace ComercialHermanosCastro.Persistence.Repositories
                     listResultado = await query.Where(o =>
                                                                                 o.FechaRegistro.Value.Date >= fecha_inicio.Date &&
                                                                                o.FechaRegistro.Value.Date <= fecha_fin.Date).
-                                                                               Include(dv =>dv.DetalleVenta).ThenInclude(p => p.IdProductoNavigation).
-                                                                               Include(dv => dv.DetalleVenta).ThenInclude(c => c.IdClienteNavigation)
+                                                                               Include(dv =>dv.DetalleVenta).ThenInclude(p => p.IdProductoNavigation)
                                                                                .ToListAsync();
                 }
                 else
                 {
                     listResultado = await query.Where(o => o.NumeroDocumento == numeroVenta).Include(dv =>
-                                                                                    dv.DetalleVenta).ThenInclude(p => p.IdProductoNavigation).
-                                                                                    Include(dv => dv.DetalleVenta).ThenInclude(c => c.IdClienteNavigation)
+                                                                                    dv.DetalleVenta).ThenInclude(p => p.IdProductoNavigation)
                                                                                     .ToListAsync();
                 }
 
@@ -107,9 +105,8 @@ namespace ComercialHermanosCastro.Persistence.Repositories
                 listResultado = await query.
                     Include(p => p.IdProductoNavigation).
                     Include(v => v.IdVentaNavigation).
-                    Include(c => c.IdClienteNavigation).
                     Where(o => o.IdVentaNavigation.FechaRegistro.Value.Date >= fecha_inicio.Date &&
-                                 o.IdVentaNavigation.FechaRegistro.Value.Date >= fecha_fin.Date).ToListAsync();
+                                 o.IdVentaNavigation.FechaRegistro.Value.Date <= fecha_fin.Date).ToListAsync();
             }
             catch (Exception)
             {
