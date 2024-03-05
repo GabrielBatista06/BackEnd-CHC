@@ -36,7 +36,10 @@ namespace ComercialHermanosCastro.ProfileAutoMapper
                 opt => opt.MapFrom(origen => origen.FechaRegistro.Value.ToString("dd/MM/yyyy")))
                 .ForMember(destino =>
                     destino.NombreCliente,
-                    opt => opt.MapFrom(origen => origen.IdClienteNavigation.Nombre));
+                    opt => opt.MapFrom(origen => origen.IdClienteNavigation.Nombre)).ForMember(destino =>
+                destino.Comision,
+                opt => opt.MapFrom(origen => Convert.ToString(origen.Comision.Value, new CultureInfo("es-PE")))
+                );
 
             CreateMap<VentaDto, Ventas>().ForMember(destino =>
                 destino.Total,
@@ -44,8 +47,9 @@ namespace ComercialHermanosCastro.ProfileAutoMapper
                 ).ForMember(destino =>
                 destino.FechaRegistro,
                 opt => opt.MapFrom(origen => Convert.ToDateTime(origen.FechaRegistro))).ForMember(destino =>
-                destino.FechaPago,
-                opt => opt.MapFrom(origen => Convert.ToDateTime(origen.FechaPago))); 
+                destino.Comision,
+                opt => opt.MapFrom(origen => Convert.ToDecimal(origen.Comision, new CultureInfo("es-PE")))
+                );
 
             #region DetalleVenta
             CreateMap<DetalleVentas, DetalleVentaDto>()
@@ -81,18 +85,14 @@ namespace ComercialHermanosCastro.ProfileAutoMapper
             #region Cuenta Pendiente
             CreateMap<CuentasPendiente, CuentasPendientesDto>()
                 .ForMember(destino =>
-                    destino.NombreCliente,
+                    destino.Nombre,
                     opt => opt.MapFrom(origen => origen.IdClienteNavigation.Nombre)
                 ).ForMember(destino =>
-                    destino.ApellidoCliente,
+                    destino.Apellidos,
                     opt => opt.MapFrom(origen => origen.IdClienteNavigation.Apellidos)
                 ).ForMember(destino =>
                     destino.Total,
-                    opt => opt.MapFrom(origen => Convert.ToString(origen.Total, new CultureInfo("es-PE")))
-                ).ForMember(destino =>
-                    destino.FechaPago,
-                    opt => opt.MapFrom(origen => origen.FechaPago.Value.ToString("dd/MM/yyyy"))
-                );
+                    opt => opt.MapFrom(origen => Convert.ToString(origen.Total, new CultureInfo("es-PE"))));
 
             CreateMap<CuentasPendientesDto, CuentasPendiente>()
                 .ForMember(destino =>
@@ -110,12 +110,7 @@ namespace ComercialHermanosCastro.ProfileAutoMapper
                 .ForMember(destino =>
                     destino.NumeroDocumento,
                     opt => opt.MapFrom(origen => origen.IdVentaNavigation.NumeroDocumento)
-                )
-                .ForMember(destino =>
-                    destino.TipoPago,
-                    opt => opt.MapFrom(origen => origen.IdVentaNavigation.TipoPago)
-                )
-                .ForMember(destino =>
+                ).ForMember(destino =>
                     destino.TotalVenta,
                     opt => opt.MapFrom(origen => Convert.ToString(origen.IdVentaNavigation.Total.Value, new CultureInfo("es-PE")))
                 )

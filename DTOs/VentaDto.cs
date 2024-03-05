@@ -11,10 +11,12 @@ namespace ComercialHermanosCastro.DTOs
         public string NombreCliente { get; set; }
         public int? Usuario { get; set; }
         public string NumeroDocumento { get; set; }
-        public string TipoPago { get; set; }
-        public string FechaRegistro { get; set; }
-        public string Total { get; set; }
-        public string? FechaPago { get; set; }
+        //public string TipoPago { get; set; }
+        public string? FechaRegistro { get; set; }
+        public string? Total { get; set; }
+        public int? DiaPago { get; set; }
+        public string? Comision { get; set; }
+        
         public virtual ICollection<DetalleVentaDto> DetalleVenta { get; set; }
     }
 }

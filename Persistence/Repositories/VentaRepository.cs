@@ -35,11 +35,13 @@ namespace ComercialHermanosCastro.Persistence.Repositories
 
         public async Task<VentaDto> GenerarVenta(VentaDto venta)
         {
+            venta.FechaRegistro = DateTime.Now.ToString("dd/MM/yyyy");
+
             CuentasPendientesDto cuentasPendientesDto = new CuentasPendientesDto();
 
             cuentasPendientesDto.IdCliente = venta.IdCliente;
             cuentasPendientesDto.Total = Convert.ToDecimal(venta.Total);
-            cuentasPendientesDto.FechaPago = Convert.ToDateTime(venta.FechaPago);
+            cuentasPendientesDto.DiaPago = venta.DiaPago;
             try
             {
                 var ventaGenerada = await _ventaGenericRepository.Registrar(_mapper.Map<Ventas>(venta));

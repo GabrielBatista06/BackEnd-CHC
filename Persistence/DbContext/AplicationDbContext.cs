@@ -110,14 +110,18 @@ namespace ComercialHermanosCastro.Persistence.DbContext
                     .IsUnicode(false)
                     .HasColumnName("numeroDocumento");
 
-                entity.Property(e => e.TipoPago)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("tipoPago");
+                //entity.Property(e => e.TipoPago)
+                //    .HasMaxLength(50)
+                //    .IsUnicode(false)
+                //    .HasColumnName("tipoPago");
 
                 entity.Property(e => e.Total)
                     .HasColumnType("decimal(10, 2)")
                     .HasColumnName("total");
+
+                entity.Property(e => e.Comision)
+                    .HasColumnType("decimal(10, 2)")
+                    .HasColumnName("comision");
 
                 entity.HasOne(d => d.UsuarioNavigation)
                     .WithMany()
@@ -139,10 +143,9 @@ namespace ComercialHermanosCastro.Persistence.DbContext
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.FechaPago)
-                    .HasColumnType("datetime")
-                    .HasColumnName("fechaPago")
-                    .HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.DiaPago)
+                    .HasColumnType("int")
+                    .HasColumnName("diaPago");
 
                 entity.Property(e => e.Total)
                     .HasColumnType("decimal(10, 2)")

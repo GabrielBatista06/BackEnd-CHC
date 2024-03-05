@@ -1,6 +1,7 @@
 ﻿using ComercialHermanosCastro.Domain.IRepositories;
 using ComercialHermanosCastro.Domain.IServices;
 using ComercialHermanosCastro.DTOs;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ComercialHermanosCastro.Services
@@ -17,6 +18,11 @@ namespace ComercialHermanosCastro.Services
         public async Task<bool> GenerarCuentaPendiente(CuentasPendientesDto cuentasPendientesDto)
         {
             return await _repository.GenerarCuentaPendiente(cuentasPendientesDto);
+        }
+
+        public async Task<List<CuentasPendientesDto>> Lista()
+        {
+            return await _repository.Lista();
         }
     }
 }

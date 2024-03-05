@@ -6,9 +6,9 @@ namespace ComercialHermanosCastro.DTOs
     {
         public int Id { get; set; }
         public int? IdCliente { get; set; }
-        public string NombreCliente { get; set; }
-        public string ApellidoCliente { get; set; }
-        public DateTime? FechaPago { get; set; }
+        public string Nombre { get; set; }
+        public string Apellidos { get; set; }
+        public int? DiaPago { get; set; }
         public decimal? Total { get; set; }
     }
 }

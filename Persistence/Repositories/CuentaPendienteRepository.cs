@@ -2,7 +2,10 @@
 using ComercialHermanosCastro.Domain.IRepositories;
 using ComercialHermanosCastro.Domain.Models;
 using ComercialHermanosCastro.DTOs;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ComercialHermanosCastro.Persistence.Repositories
@@ -31,6 +34,23 @@ namespace ComercialHermanosCastro.Persistence.Repositories
                 }
 
                 return true;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<List<CuentasPendientesDto>> Lista()
+        {
+            try
+            {
+                var wrkqryProducto = await _cuentaRepository.Consultar();
+
+                var listaCuentasPendientes = wrkqryProducto.Include(c => c.IdClienteNavigation);
+
+                return _mapper.Map<List<CuentasPendientesDto>>(listaCuentasPendientes.ToList().Where(q => q.Total > 0));
             }
             catch (Exception)
             {
