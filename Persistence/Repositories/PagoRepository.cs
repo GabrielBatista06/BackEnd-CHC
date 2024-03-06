@@ -45,6 +45,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
                         balanceAnterior = montoAnterior,
                         montoPagado = pagoDto.MontoPagado,
                         fechaPago = DateTime.Now,
+                        tipoPago = pagoDto.TipoPago
                     };
 
                     await _context.Pagos.AddAsync(pago);

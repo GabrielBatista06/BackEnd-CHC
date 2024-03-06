@@ -21,11 +21,11 @@ namespace ComercialHermanosCastro.Domain.Models
         [ForeignKey("idCliente")]
         public int? IdCliente { get; set; }
         public string NumeroDocumento { get; set; }
-       // public string TipoPago { get; set; }
         public DateTime? FechaRegistro { get; set; }
         public decimal? Total { get; set; }
         public int? DiaPago { get; set; }
         public decimal? Comision { get; set; }
+        public string TipoVenta { get; set; }
         public virtual Usuario UsuarioNavigation { get; set; }
         public virtual ICollection<DetalleVentas> DetalleVenta { get; set; }
         public virtual Cliente IdClienteNavigation { get; set; }
