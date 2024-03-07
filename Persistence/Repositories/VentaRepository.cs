@@ -49,8 +49,11 @@ namespace ComercialHermanosCastro.Persistence.Repositories
                 if (ventaGenerada.IdVenta == 0)
                 {
                     throw new TaskCanceledException("No se pudo generar la venta");
-                }
-                await _cuentaPendiente.GenerarCuentaPendiente(cuentasPendientesDto);
+                } else if (venta.TipoVenta != "contado")
+                {
+                    await _cuentaPendiente.GenerarCuentaPendiente(cuentasPendientesDto);
+                    return _mapper.Map<VentaDto>(ventaGenerada);
+                }  
                 return _mapper.Map<VentaDto>(ventaGenerada);
             }
             catch (Exception)

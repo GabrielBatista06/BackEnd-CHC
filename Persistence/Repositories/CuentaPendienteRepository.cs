@@ -49,8 +49,11 @@ namespace ComercialHermanosCastro.Persistence.Repositories
                 var wrkqryProducto = await _cuentaRepository.Consultar();
 
                 var listaCuentasPendientes = wrkqryProducto.Include(c => c.IdClienteNavigation);
+                int diaActual = DateTime.Now.Day;
 
-                return _mapper.Map<List<CuentasPendientesDto>>(listaCuentasPendientes.ToList().Where(q => q.Total > 0));
+                var result=_mapper.Map<List<CuentasPendientesDto>>(listaCuentasPendientes.ToList().Where(q => q.Total > 0)).OrderBy( o => o.DiaPago == diaActual ? 0 : 1).ThenBy(o => o.DiaPago).ToList();
+
+                return result;
             }
             catch (Exception)
             {
