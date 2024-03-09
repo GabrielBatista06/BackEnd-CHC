@@ -23,7 +23,7 @@ namespace ComercialHermanosCastro.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Usuario usuario)
+        public async Task<IActionResult> Post([FromBody] UsuarioDto usuario)
         {
             try
             {
@@ -62,6 +62,7 @@ namespace ComercialHermanosCastro.Controllers
                 }
                 else
                 {
+                    usuario.Rol = cambiarPasswordDTO.rol;
                     usuario.Password = Encriptar.EncriptarPassword(cambiarPasswordDTO.nuevaPassword);
                     await _usuarioService.UpdatePassword(usuario);
                     return Ok(new { message = "La password fue actualizada" });

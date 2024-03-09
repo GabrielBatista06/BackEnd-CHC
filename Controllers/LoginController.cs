@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
 using System;
 using ComercialHermanosCastro.Domain.IServices;
+using ComercialHermanosCastro.DTOs;
 
 namespace ComercialHermanosCastro.Controllers
 {
@@ -21,7 +22,7 @@ namespace ComercialHermanosCastro.Controllers
             _configuration = configuration;
         }
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Usuario usuario)
+        public async Task<IActionResult> Post([FromBody] UsuarioDto usuario)
         {
             try
             {

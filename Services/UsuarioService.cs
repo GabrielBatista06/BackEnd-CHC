@@ -1,6 +1,7 @@
 ﻿using ComercialHermanosCastro.Domain.IRepositories;
 using ComercialHermanosCastro.Domain.IServices;
 using ComercialHermanosCastro.Domain.Models;
+using ComercialHermanosCastro.DTOs;
 using System.Threading.Tasks;
 
 namespace ComercialHermanosCastro.Services
@@ -14,20 +15,20 @@ namespace ComercialHermanosCastro.Services
             _usuarioRepository = usuarioRepository;
         }
 
-        public  async Task SaveUser(Usuario usuario)
+        public  async Task SaveUser(UsuarioDto usuario)
         {
             await _usuarioRepository.SaveUser(usuario);
         }
 
-        public async Task<bool> ValidateExistence(Usuario usuario)
+        public async Task<bool> ValidateExistence(UsuarioDto usuario)
         {
             return await _usuarioRepository.ValidateExistence(usuario);
         }
-        public async Task<Usuario> ValidatePassword(int idUsuario, string passwordAnterior)
+        public async Task<UsuarioDto> ValidatePassword(int idUsuario, string passwordAnterior)
         {
             return await _usuarioRepository.ValidatePassword(idUsuario, passwordAnterior);
         }
-        public async Task UpdatePassword(Usuario usuario)
+        public async Task UpdatePassword(UsuarioDto usuario)
         {
             await _usuarioRepository.UpdatePassword(usuario);
         }

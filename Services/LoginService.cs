@@ -1,6 +1,7 @@
 ﻿using ComercialHermanosCastro.Domain.IRepositories;
 using ComercialHermanosCastro.Domain.IServices;
 using ComercialHermanosCastro.Domain.Models;
+using ComercialHermanosCastro.DTOs;
 using System.Threading.Tasks;
 
 namespace ComercialHermanosCastro.Services
@@ -13,7 +14,7 @@ namespace ComercialHermanosCastro.Services
             _loginRepository = loginRepository;
         }
 
-        public async Task<Usuario> ValidateUser(Usuario usuario)
+        public async Task<Usuario> ValidateUser(UsuarioDto usuario)
         {
             return await _loginRepository.ValidateUser(usuario);
 

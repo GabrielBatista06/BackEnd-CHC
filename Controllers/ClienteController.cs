@@ -21,15 +21,6 @@ namespace ComercialHermanosCastro.Controllers
         [HttpGet]
         public async Task<ActionResult<List<ClienteDto>>> Get()
         {
-            //var clientes = await _clienteService.GetCliente();
-
-            //if (clientes == null )
-            //{
-            //    return NotFound();
-            //}
-
-            //return clientes;
-
             var result = new Response<List<ClienteDto>>();
             try
             {

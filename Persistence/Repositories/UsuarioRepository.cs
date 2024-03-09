@@ -1,5 +1,7 @@
-﻿using ComercialHermanosCastro.Domain.IRepositories;
+﻿using AutoMapper;
+using ComercialHermanosCastro.Domain.IRepositories;
 using ComercialHermanosCastro.Domain.Models;
+using ComercialHermanosCastro.DTOs;
 using ComercialHermanosCastro.Persistence.DbContext;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -11,32 +13,34 @@ namespace ComercialHermanosCastro.Persistence.Repositories
     {
 
         private readonly AplicationDbContext _context;
-        public UsuarioRepository(AplicationDbContext context)
+        private readonly IMapper _mapper;
+        public UsuarioRepository(AplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
-        public async Task SaveUser(Usuario usuario)
+        public async Task SaveUser(UsuarioDto    usuario)
         {
-            _context.Add(usuario);
+            _context.Add(_mapper.Map<Usuario>(usuario));
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> ValidateExistence(Usuario usuario)
+        public async Task<bool> ValidateExistence(UsuarioDto usuario)
         {
             var validateExistence = await _context.Usuarios.AnyAsync(x => x.NombreUsuario == usuario.NombreUsuario);
 
             return validateExistence;
         }
 
-        public async Task<Usuario> ValidatePassword(int idUsuario, string passwordAnterior)
+        public async Task<UsuarioDto   > ValidatePassword(int idUsuario, string passwordAnterior)
         {
-            var usuario = await _context.Usuarios.Where(x => x.Id == idUsuario && x.Password == passwordAnterior).FirstOrDefaultAsync();
-            return usuario;
+            var usuario = await _context.Usuarios.AsNoTracking().Where(x => x.Id == idUsuario && x.Password == passwordAnterior).FirstOrDefaultAsync();
+            return _mapper.Map<UsuarioDto>(usuario);
         }
 
-        public async Task UpdatePassword(Usuario usuario)
+        public async Task UpdatePassword(UsuarioDto usuario)
         {
-            _context.Update(usuario);
+            _context.Update(_mapper.Map<Usuario>(usuario));
 
             await _context.SaveChangesAsync();
         }

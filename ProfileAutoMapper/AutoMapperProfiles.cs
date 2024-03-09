@@ -13,6 +13,7 @@ namespace ComercialHermanosCastro.ProfileAutoMapper
             CreateMap<Cliente, CrearClienteDto>().ReverseMap();
             CreateMap<Cliente, ClienteDto>().ReverseMap();
             CreateMap<Pago, PagoDto>().ReverseMap();
+            CreateMap<Usuario, UsuarioDto>().ReverseMap();
             CreateMap<Producto, ProductoDto>().ForMember(destino =>
                 destino.Precio,
                 opt => opt.MapFrom(origen => Convert.ToString(origen.Precio, new CultureInfo("es-PE")))
@@ -57,11 +58,7 @@ namespace ComercialHermanosCastro.ProfileAutoMapper
                     destino.DescripcionProducto,
                     opt => opt.MapFrom(origen => origen.IdProductoNavigation.Nombre)
                 )
-                
-                //.ForMember(destino =>
-                //    destino.NombreCliente,
-                //    opt => opt.MapFrom(origen => origen.IdClienteNavigation.Nombre)
-                //)
+
                 .ForMember(destino =>
                     destino.Precio,
                     opt => opt.MapFrom(origen => Convert.ToString(origen.Precio.Value, new CultureInfo("es-PE")))

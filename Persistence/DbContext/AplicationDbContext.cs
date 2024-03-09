@@ -86,11 +86,6 @@ namespace ComercialHermanosCastro.Persistence.DbContext
                     .WithMany(p => p.DetalleVenta)
                     .HasForeignKey(d => d.IdVenta)
                     .HasConstraintName("FK__DetalleVe__idVen__25869641");
-
-                //entity.HasOne(d => d.IdClienteNavigation)
-                //    .WithMany(p => p.DetalleVenta)
-                //    .HasForeignKey(d => d.IdCliente)
-                //    .HasConstraintName("FK__DetalleVe__idVen__25869645");
             });
 
             modelBuilder.Entity<Ventas>(entity =>
@@ -109,11 +104,6 @@ namespace ComercialHermanosCastro.Persistence.DbContext
                     .HasMaxLength(40)
                     .IsUnicode(false)
                     .HasColumnName("numeroDocumento");
-
-                //entity.Property(e => e.TipoPago)
-                //    .HasMaxLength(50)
-                //    .IsUnicode(false)
-                //    .HasColumnName("tipoPago");
 
                 entity.Property(e => e.Total)
                     .HasColumnType("decimal(10, 2)")

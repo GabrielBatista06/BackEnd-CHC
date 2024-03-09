@@ -14,5 +14,9 @@ namespace ComercialHermanosCastro.Domain.Models
         [Required]
         [Column(TypeName = "varchar(50)")]
         public string Password { get; set; }
+
+        [Column(TypeName = "varchar(50)")]
+        public string? Rol { get; set; }
+        
     }
 }

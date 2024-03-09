@@ -6,6 +6,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System;
+using ComercialHermanosCastro.DTOs;
 
 namespace ComercialHermanosCastro.Utils
 {
@@ -25,6 +26,7 @@ namespace ComercialHermanosCastro.Utils
             {
                 new Claim(JwtRegisteredClaimNames.Sub, userInfo.NombreUsuario),
                 new Claim("idUsuario",userInfo.Id.ToString()),
+                 new Claim("rol",userInfo.Rol.ToString()),
             };
 
             var token = new JwtSecurityToken(
