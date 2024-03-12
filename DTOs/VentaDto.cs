@@ -16,7 +16,8 @@ namespace ComercialHermanosCastro.DTOs
         public string? Total { get; set; }
         public int? DiaPago { get; set; }
         public string? Comision { get; set; }
-        
+        public int? cuotas { get; set; }
+
         public virtual ICollection<DetalleVentaDto> DetalleVenta { get; set; }
     }
 }

@@ -18,7 +18,9 @@ namespace ComercialHermanosCastro.Domain.Models
         public int? IdCliente { get; set; }
         public decimal? Total { get; set; }
         public int? DiaPago { get; set; }
-
+        public int? cuotas { get; set; }
+        public decimal? valorCuota { get; set; }
+        public DateTime? fechaRegistro { get; set; }
         public virtual Cliente IdClienteNavigation { get; set; }
         //public virtual ICollection<Pago> Pagos { get; set; }
     }

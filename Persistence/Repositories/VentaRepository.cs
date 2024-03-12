@@ -39,9 +39,6 @@ namespace ComercialHermanosCastro.Persistence.Repositories
 
             CuentasPendientesDto cuentasPendientesDto = new CuentasPendientesDto();
 
-            cuentasPendientesDto.IdCliente = venta.IdCliente;
-            cuentasPendientesDto.Total = Convert.ToDecimal(venta.Total);
-            cuentasPendientesDto.DiaPago = venta.DiaPago;
             try
             {
                 var ventaGenerada = await _ventaGenericRepository.Registrar(_mapper.Map<Ventas>(venta));
@@ -51,6 +48,13 @@ namespace ComercialHermanosCastro.Persistence.Repositories
                     throw new TaskCanceledException("No se pudo generar la venta");
                 } else if (venta.TipoVenta != "contado")
                 {
+                    cuentasPendientesDto.IdCliente = venta.IdCliente;
+                    cuentasPendientesDto.Total = Convert.ToDecimal(venta.Total);
+                    cuentasPendientesDto.DiaPago = venta.DiaPago;
+                    cuentasPendientesDto.cuotas = venta.cuotas;
+                    cuentasPendientesDto.valorCuota = cuentasPendientesDto.Total / venta.cuotas;
+                    cuentasPendientesDto.fechaRegistro = DateTime.Now;
+
                     await _cuentaPendiente.GenerarCuentaPendiente(cuentasPendientesDto);
                     return _mapper.Map<VentaDto>(ventaGenerada);
                 }  
