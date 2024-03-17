@@ -26,6 +26,7 @@ namespace ComercialHermanosCastro.Domain.Models
         public int? DiaPago { get; set; }
         public decimal? Comision { get; set; }
         public string TipoVenta { get; set; }
+        public decimal? Descuento { get; set; }
         public virtual Usuario UsuarioNavigation { get; set; }
         public virtual ICollection<DetalleVentas> DetalleVenta { get; set; }
         public virtual Cliente IdClienteNavigation { get; set; }

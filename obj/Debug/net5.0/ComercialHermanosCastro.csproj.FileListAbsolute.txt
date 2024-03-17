@@ -132,3 +132,4 @@ C:\Users\Angelo Santana\Desktop\Proyectos\Comercial Hermanos castro\BackEnd\obj\
 C:\Users\Angelo Santana\Desktop\Proyectos\Comercial Hermanos castro\BackEnd\obj\Debug\net5.0\ComercialHermanosCastro.pdb
 C:\Users\Angelo Santana\Desktop\Proyectos\Comercial Hermanos castro\BackEnd\obj\Debug\net5.0\ComercialHermanosCastro.genruntimeconfig.cache
 C:\Users\Angelo Santana\Desktop\Proyectos\Comercial Hermanos castro\BackEnd\obj\Debug\net5.0\ref\ComercialHermanosCastro.dll
+C:\Users\Angelo Santana\Desktop\Proyectos\Comercial Hermanos castro\BackEnd\bin\Debug\net5.0\System.Drawing.Common.dll

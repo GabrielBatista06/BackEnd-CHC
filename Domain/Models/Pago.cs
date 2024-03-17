@@ -16,6 +16,7 @@ namespace ComercialHermanosCastro.Domain.Models
         public decimal? montoPagado { get; set; }
         public DateTime? fechaPago { get; set; }
         public string tipoPago { get; set; }
+        public string? numeroDocumento { get; set; }
         public virtual CuentasPendiente IdcuentaPendienteNavigation { get; set; }
         public virtual Usuario UsuarioCobroNavigation { get; set; }
     }

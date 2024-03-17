@@ -21,6 +21,7 @@ namespace ComercialHermanosCastro.Domain.Models
         public int? cuotas { get; set; }
         public decimal? valorCuota { get; set; }
         public DateTime? fechaRegistro { get; set; }
+        public string? numeroDocumento { get; set; }
         public virtual Cliente IdClienteNavigation { get; set; }
         //public virtual ICollection<Pago> Pagos { get; set; }
     }

@@ -24,7 +24,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
             //usaremos transacion, ya que si ocurre un error en algun insert a una tabla, debe reestablecer todo a cero, como si no hubo o no existió ningun insert
             using (var transaction = _context.Database.BeginTransaction())
             {
-                int CantidadDigitos = 4;
+                int CantidadDigitos = 6;
                 try
                 {
                     foreach (DetalleVentas dv in modelo.DetalleVenta)

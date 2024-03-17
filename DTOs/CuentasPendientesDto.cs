@@ -13,5 +13,6 @@ namespace ComercialHermanosCastro.DTOs
         public int? cuotas { get; set; }
         public decimal? valorCuota { get; set; }
         public DateTime? fechaRegistro { get; set; }
+        public string? numeroDocumento { get; set; }
     }
 }

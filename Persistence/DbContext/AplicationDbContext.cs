@@ -19,6 +19,7 @@ namespace ComercialHermanosCastro.Persistence.DbContext
         public DbSet<Producto> Productos { get; set; }
         public DbSet<Ventas> Venta { get; set; }
         public DbSet<Pago> Pagos { get; set; }
+        public DbSet<NumeroDocumentoPago> NumeroDocumentosPagos { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
