@@ -229,6 +229,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
                 e.Graphics.DrawString(line, font_p, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
                 e.Graphics.DrawString("Cliente: " + cliente.Nombre + " " + cliente.Apellidos + $" ({cliente.Apodo})", font_p2, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
                 e.Graphics.DrawString("Cel.: " + cliente.Celular + " Tel.: " + cliente.Telefono, font_p2, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
+                e.Graphics.DrawString("Tipo De Pago: " + venta.TipoPago.Replace("tarjeta", "Tarjeta").Replace("transferencia", "Transferencia").Replace("efectivo", "Efectivo"), font_p2, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
                 //e.Graphics.DrawString("Día Pago Cuotas: Los días " + venta.DiaPago.ToString() + " de cada mes", font_p2, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
                 //e.Graphics.DrawString("Cant. Cuotas: " + pendientesDto.cuotas, font_p2, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
                 //e.Graphics.DrawString("Valor Cuotas: " + pendientesDto.valorCuota?.ToString("0.00"), font_p2, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
