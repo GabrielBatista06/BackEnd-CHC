@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using ComercialHermanosCastro.Domain.Models;
 using ComercialHermanosCastro.DTOs;
-using System.Globalization;
 using System;
+using System.Globalization;
 
 namespace ComercialHermanosCastro.ProfileAutoMapper
 {

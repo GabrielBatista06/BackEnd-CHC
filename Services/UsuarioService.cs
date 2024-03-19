@@ -15,7 +15,7 @@ namespace ComercialHermanosCastro.Services
             _usuarioRepository = usuarioRepository;
         }
 
-        public  async Task SaveUser(UsuarioDto usuario)
+        public async Task SaveUser(UsuarioDto usuario)
         {
             await _usuarioRepository.SaveUser(usuario);
         }

@@ -3,6 +3,7 @@ using ComercialHermanosCastro.Domain.IRepositories;
 using ComercialHermanosCastro.Domain.IServices;
 using ComercialHermanosCastro.Domain.Models;
 using ComercialHermanosCastro.DTOs;
+using ComercialHermanosCastro.Persistence.DbContext;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,6 @@ using System.Drawing.Printing;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using ComercialHermanosCastro.Persistence.DbContext;
 
 namespace ComercialHermanosCastro.Persistence.Repositories
 {
@@ -159,7 +159,6 @@ namespace ComercialHermanosCastro.Persistence.Repositories
 
         private static void PrintPageEventHandler(object sender, PrintPageEventArgs e, Ventas venta, Cliente cliente, Usuario usuario, CuentasPendientesDto pendientesDto)
         {
-          
 
             //Ruta Imagen
             string imagen = @"C:\Users\Angelo Santana\Desktop\Proyectos\Comercial Hermanos castro\FrontEnd\src\assets\img\Logo.jpeg";
@@ -202,6 +201,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
                 e.Graphics.DrawString(line, font_p, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
 
 
+
                 foreach (var item in venta.DetalleVenta)
                 {
                     e.Graphics.DrawString(item.IdProductoNavigation.Nombre, font_p2, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
@@ -230,9 +230,6 @@ namespace ComercialHermanosCastro.Persistence.Repositories
                 e.Graphics.DrawString("Cliente: " + cliente.Nombre + " " + cliente.Apellidos + $" ({cliente.Apodo})", font_p2, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
                 e.Graphics.DrawString("Cel.: " + cliente.Celular + " Tel.: " + cliente.Telefono, font_p2, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
                 e.Graphics.DrawString("Tipo De Pago: " + venta.TipoPago.Replace("tarjeta", "Tarjeta").Replace("transferencia", "Transferencia").Replace("efectivo", "Efectivo"), font_p2, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
-                //e.Graphics.DrawString("Día Pago Cuotas: Los días " + venta.DiaPago.ToString() + " de cada mes", font_p2, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
-                //e.Graphics.DrawString("Cant. Cuotas: " + pendientesDto.cuotas, font_p2, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
-                //e.Graphics.DrawString("Valor Cuotas: " + pendientesDto.valorCuota?.ToString("0.00"), font_p2, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
                 e.Graphics.DrawString(line, font_p, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
                 e.Graphics.DrawString("Producto".PadRight(13) + "Cant.".PadRight(10) + "Precio".PadRight(15) + "Total", font_p2, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
                 e.Graphics.DrawString(line, font_p, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));

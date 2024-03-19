@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ComercialHermanosCastro.Persistence.Repositories
 {
-    public class LoginRepository: ILoginRepository
+    public class LoginRepository : ILoginRepository
     {
         private readonly AplicationDbContext _context;
         private readonly IMapper _mapper;

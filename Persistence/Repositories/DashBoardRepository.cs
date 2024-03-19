@@ -2,8 +2,6 @@
 using ComercialHermanosCastro.Domain.IRepositories;
 using ComercialHermanosCastro.Domain.Models;
 using ComercialHermanosCastro.DTOs;
-using ComercialHermanosCastro.Persistence.DbContext;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -48,7 +46,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
                 }
 
                 dashBoardDTO.VentasUltimaSemana = listaVentasSemanaDtos;
-          
+
             }
             catch (Exception)
             {
@@ -60,7 +58,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
         }
 
         private IQueryable<Ventas> retornarVenta(IQueryable<Ventas> tablaVenta, int restarCantidadDias)
-        { 
+        {
             DateTime? ultimaFecha = tablaVenta.OrderByDescending(v => v.FechaRegistro).Select(v => v.FechaRegistro).First();
 
             ultimaFecha = ultimaFecha.Value.AddDays(restarCantidadDias);
@@ -73,7 +71,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
             int total = 0;
             try
             {
-                IQueryable<Ventas> _ventaQuery =  await _ventaRepository.Consultar();
+                IQueryable<Ventas> _ventaQuery = await _ventaRepository.Consultar();
 
                 if (_ventaQuery.Count() > 0)
                 {
@@ -113,7 +111,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
             {
                 throw;
             }
-        
+
         }
 
         public async Task<int> TotalProductos()
@@ -140,10 +138,6 @@ namespace ComercialHermanosCastro.Persistence.Repositories
                 {
 
                     var tablaVenta = retornarVenta(_ventaQuery, -7);
-                    //DateTime? ultimaFecha = _dbcontext.Venta.OrderByDescending(v => v.FechaRegistro).Select(v => v.FechaRegistro).First();
-                    //ultimaFecha = ultimaFecha.Value.AddDays(-7);
-
-                    //IQueryable<Venta> query = _dbcontext.Venta.Where(v => v.FechaRegistro.Value.Date >= ultimaFecha.Value.Date);
 
                     resultado = tablaVenta
                         .GroupBy(v => v.FechaRegistro.Value.Date).OrderBy(g => g.Key)

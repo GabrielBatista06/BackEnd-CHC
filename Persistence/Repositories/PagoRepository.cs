@@ -3,11 +3,11 @@ using ComercialHermanosCastro.Domain.IRepositories;
 using ComercialHermanosCastro.Domain.Models;
 using ComercialHermanosCastro.DTOs;
 using ComercialHermanosCastro.Persistence.DbContext;
-using System.Linq;
 using System;
-using System.Threading.Tasks;
-using System.Drawing.Printing;
 using System.Drawing;
+using System.Drawing.Printing;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ComercialHermanosCastro.Persistence.Repositories
 {
@@ -63,7 +63,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
                         montoPagado = pagoDto.MontoPagado,
                         fechaPago = DateTime.Now,
                         tipoPago = pagoDto.TipoPago,
-                        numeroDocumento = numeroVenta                        
+                        numeroDocumento = numeroVenta
                     };
 
                     await _context.Pagos.AddAsync(pago);
@@ -72,7 +72,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
                     var usuario = _context.Usuarios.Where(u => u.Id == pagoDto.UsuarioCobro).First();
                     var cliente = _context.Clientes.Where(u => u.Id == cuentasPendiente.IdCliente).First();
 
-                   PrintText (cliente, usuario, cuentasPendiente, pagoDto, numeroVenta);
+                    PrintText(cliente, usuario, cuentasPendiente, pagoDto, numeroVenta);
 
                     transaction.Commit();
                 }
@@ -93,7 +93,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
             PrintDocument pd = new PrintDocument();
 
             // Suscribirse al evento PrintPage
-            pd.PrintPage += (sender, e) => PrintPageEventHandler(sender, e, cliente, usuario, cuentasPendientes,  pagoDto, _numeroVenta);
+            pd.PrintPage += (sender, e) => PrintPageEventHandler(sender, e, cliente, usuario, cuentasPendientes, pagoDto, _numeroVenta);
 
             // Imprimir
             pd.Print();
@@ -125,12 +125,12 @@ namespace ComercialHermanosCastro.Persistence.Repositories
             e.Graphics.DrawString("Cel.: 829-940-4101 / 809-510-2849", font_p2, Brushes.Black, new RectangleF(25, y += 20, ancho, 20));
             e.Graphics.DrawString("Fecha: " + DateTime.Now, font_p2, Brushes.Black, new RectangleF(0, y += 40, ancho, 20));
             e.Graphics.DrawString("Atendido Por: " + usuario.NombreUsuario, font_p2, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
-            e.Graphics.DrawString("Núm. Comprobante Pago: "+ _numeroVenta, font_p2, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("Núm. Comprobante Pago: " + _numeroVenta, font_p2, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
             e.Graphics.DrawString(line, font_p, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
             e.Graphics.DrawString("Cliente: " + cliente.Nombre + " " + cliente.Apellidos + $" ({cliente.Apodo})", font_p2, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
             e.Graphics.DrawString("Cel.: " + cliente.Celular + " Tel.: " + cliente.Telefono, font_p2, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
             e.Graphics.DrawString("Núm. Factura Pendiente: " + cuentasPendientes.numeroDocumento, font_p2, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
-            e.Graphics.DrawString("Tipo De Pago: " + pagoDto.TipoPago.Replace("tarjeta","Tarjeta").Replace("transferencia", "Transferencia").Replace("efectivo", "Efectivo"), font_p2, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("Tipo De Pago: " + pagoDto.TipoPago.Replace("tarjeta", "Tarjeta").Replace("transferencia", "Transferencia").Replace("efectivo", "Efectivo"), font_p2, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
 
             e.Graphics.DrawString(line, font_p, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
             e.Graphics.DrawString("***Comprobante De Pago***", font_p2, Brushes.Black, new RectangleF(50, y += 20, ancho, 20));
@@ -139,7 +139,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
             e.Graphics.DrawString("Balance Pendiente RD$         " + pagoDto.BalanceAnterior?.ToString("0.00").PadRight(0), font_p2, Brushes.Black, new RectangleF(20, y += 20, ancho, 20));
             e.Graphics.DrawString("Monto Pagado RD$               " + pagoDto.MontoPagado?.ToString("0.00").PadRight(0), font_p2, Brushes.Black, new RectangleF(20, y += 20, ancho, 20));
             e.Graphics.DrawString("Nuevo Bal. Pendiente RD$     " + cuentasPendientes.Total?.ToString("0.00").PadRight(0), font_p2, Brushes.Black, new RectangleF(20, y += 20, ancho, 20));
-           
+
             //Footer de la factura
             e.Graphics.DrawString("Servicio, calidad y eficiencia, todo en uno.", font_p2, Brushes.Black, new RectangleF(20, y += 80, ancho, 20));
             e.Graphics.DrawString("------- Gracias por elegirnos --------", font_p2, Brushes.Black, new RectangleF(38, y += 20, ancho, 20));

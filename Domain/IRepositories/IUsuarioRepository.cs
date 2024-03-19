@@ -1,5 +1,4 @@
-﻿using ComercialHermanosCastro.Domain.Models;
-using ComercialHermanosCastro.DTOs;
+﻿using ComercialHermanosCastro.DTOs;
 using System.Threading.Tasks;
 
 namespace ComercialHermanosCastro.Domain.IRepositories

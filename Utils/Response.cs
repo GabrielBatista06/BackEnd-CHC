@@ -1,6 +1,6 @@
 ﻿namespace ComercialHermanosCastro.Utils
 {
-    public class Response <T>
+    public class Response<T>
     {
         public bool status { get; set; }
         public string? msg { get; set; }

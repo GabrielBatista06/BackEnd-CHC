@@ -22,7 +22,7 @@ namespace ComercialHermanosCastro.Services
 
         public async Task<List<VentaDto>> Historial(string filtrarPor, string numeroVenta, string fechaInicio, string fechaFin)
         {
-           return await _ventaRepository.Historial(filtrarPor,numeroVenta,fechaInicio,fechaFin);
+            return await _ventaRepository.Historial(filtrarPor, numeroVenta, fechaInicio, fechaFin);
         }
 
         public async Task<List<ReporteDto>> Reporte(string fechaInicio, string fechaFin)

@@ -1,14 +1,13 @@
 ﻿using ComercialHermanosCastro.Domain.IServices;
-using ComercialHermanosCastro.Domain.Models;
 using ComercialHermanosCastro.DTOs;
 using ComercialHermanosCastro.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System;
 
 namespace ComercialHermanosCastro.Controllers
 {

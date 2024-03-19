@@ -3,7 +3,6 @@ using ComercialHermanosCastro.Domain.IRepositories;
 using ComercialHermanosCastro.Domain.Models;
 using ComercialHermanosCastro.DTOs;
 using ComercialHermanosCastro.Persistence.DbContext;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -40,7 +39,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
             if (clienteDto.Activo == false)
             {
                 clienteDto.Id = id;
-                clienteDto.Activo = false ;
+                clienteDto.Activo = false;
                 clienteDto.FechaEdicion = DateTime.Now;
 
                 _mapper.Map(clienteDto, result);

@@ -15,7 +15,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
         private readonly IGenericRepository<CuentasPendiente> _cuentaRepository;
         private readonly IMapper _mapper;
 
-        public CuentaPendienteRepository(IGenericRepository<CuentasPendiente> cuentaRepository, 
+        public CuentaPendienteRepository(IGenericRepository<CuentasPendiente> cuentaRepository,
                                                                         IMapper mapper)
         {
             _cuentaRepository = cuentaRepository;
@@ -51,7 +51,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
                 var listaCuentasPendientes = wrkqryProducto.Include(c => c.IdClienteNavigation);
                 int diaActual = DateTime.Now.Day;
 
-                var result=_mapper.Map<List<CuentasPendientesDto>>(listaCuentasPendientes.ToList().Where(q => q.Total > 0)).OrderBy( o => o.DiaPago == diaActual ? 0 : 1).ThenBy(o => o.DiaPago).ToList();
+                var result = _mapper.Map<List<CuentasPendientesDto>>(listaCuentasPendientes.ToList().Where(q => q.Total > 0)).OrderBy(o => o.DiaPago == diaActual ? 0 : 1).ThenBy(o => o.DiaPago).ToList();
 
                 return result;
             }

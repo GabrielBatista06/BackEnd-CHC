@@ -1,6 +1,4 @@
-﻿using ComercialHermanosCastro.Domain.Models;
-using ComercialHermanosCastro.DTOs;
-using Microsoft.AspNetCore.Mvc;
+﻿using ComercialHermanosCastro.DTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

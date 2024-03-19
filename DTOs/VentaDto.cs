@@ -1,6 +1,4 @@
-﻿using ComercialHermanosCastro.Domain.Models;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ComercialHermanosCastro.DTOs
 {

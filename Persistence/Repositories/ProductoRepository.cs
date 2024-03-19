@@ -23,7 +23,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
         {
             try
             {
-                var wrkqryProducto =  await _productoRepository.Consultar();
+                var wrkqryProducto = await _productoRepository.Consultar();
 
                 return _mapper.Map<List<ProductoDto>>(wrkqryProducto);
             }
@@ -104,7 +104,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
                     throw new TaskCanceledException("No se pudo encontrar el producto para eliminar");
                 }
 
-                bool  result = await _productoRepository.Eliminar(productoEncontrado);
+                bool result = await _productoRepository.Eliminar(productoEncontrado);
                 if (!result)
                 {
                     throw new TaskCanceledException("No se pudo eliminar el producto ");

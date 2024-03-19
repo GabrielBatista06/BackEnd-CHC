@@ -22,7 +22,7 @@ namespace ComercialHermanosCastro.Services
 
         public async Task<bool> Editar(ProductoDto productoDto)
         {
-           return await _repository.Editar(productoDto);
+            return await _repository.Editar(productoDto);
         }
 
         public async Task<bool> Eliminar(int id)
@@ -33,7 +33,7 @@ namespace ComercialHermanosCastro.Services
 
         public async Task<List<ProductoDto>> Lista()
         {
-           return await _repository.Lista();
+            return await _repository.Lista();
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using ComercialHermanosCastro.Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace ComercialHermanosCastro.Persistence.DbContext
 {

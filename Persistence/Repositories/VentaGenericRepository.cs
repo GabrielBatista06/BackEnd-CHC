@@ -3,16 +3,15 @@ using ComercialHermanosCastro.Domain.Models;
 using ComercialHermanosCastro.Persistence.DbContext;
 using System;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace ComercialHermanosCastro.Persistence.Repositories
 {
-    public class VentaGenericRepository: GenericRepository<Ventas> , IVentaGenericRepository
+    public class VentaGenericRepository : GenericRepository<Ventas>, IVentaGenericRepository
     {
         private readonly AplicationDbContext _context;
 
-        public VentaGenericRepository(AplicationDbContext context) : base(context) 
+        public VentaGenericRepository(AplicationDbContext context) : base(context)
         {
             _context = context;
         }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ComercialHermanosCastro.DTOs
+﻿namespace ComercialHermanosCastro.DTOs
 {
     public class PagoDto
     {

@@ -10,10 +10,6 @@ namespace ComercialHermanosCastro.Domain.Models
     [Table("Venta")]
     public partial class Ventas
     {
-        //public Ventas()
-        //{
-        //    DetalleVenta = new HashSet<DetalleVentas>();
-        //}
         [Key]
         public int IdVenta { get; set; }
         [ForeignKey("usuario")]

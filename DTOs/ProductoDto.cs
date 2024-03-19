@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ComercialHermanosCastro.DTOs
+﻿namespace ComercialHermanosCastro.DTOs
 {
     public class ProductoDto
     {
@@ -12,7 +10,5 @@ namespace ComercialHermanosCastro.DTOs
         public int? Stock { get; set; }
         public string? Precio { get; set; }
         public int? EsActivo { get; set; }
-        //public DateTime? FechaRegistro { get; set; }
-        //public DateTime? FechaEdicion { get; set; }
     }
 }

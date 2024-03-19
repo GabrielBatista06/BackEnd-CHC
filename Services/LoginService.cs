@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ComercialHermanosCastro.Services
 {
-    public class LoginService: ILoginService
+    public class LoginService : ILoginService
     {
         private readonly ILoginRepository _loginRepository;
         public LoginService(ILoginRepository loginRepository)

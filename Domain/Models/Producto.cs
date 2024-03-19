@@ -10,12 +10,7 @@ namespace ComercialHermanosCastro.Domain.Models
     [Table("Producto")]
     public partial class Producto
     {
-        //public Producto()
-        //{
-        //    DetalleVenta = new HashSet<DetalleVentas>();
-        //}
         [Key]
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdProducto { get; set; }
         public string Nombre { get; set; }
         public string Marca { get; set; }
