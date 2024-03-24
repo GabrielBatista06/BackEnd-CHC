@@ -172,7 +172,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
             int y = 20;
 
             decimal? subTotal = venta.Total - venta.Comision;
-            decimal? subTotalDescuento = venta.Total - venta.Descuento;
+            decimal? subTotalDescuento = venta.Total + venta.Descuento;
             string line = "------------------------------------------------------------------------";
 
             Image img = Image.FromFile(imagen);
@@ -241,9 +241,9 @@ namespace ComercialHermanosCastro.Persistence.Repositories
                     item.Total, fontNormal, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
                 }
                 e.Graphics.DrawString(line, font_p, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
-                e.Graphics.DrawString("Sub Total RD$                " + venta.Total?.ToString("0.00").PadRight(0), font_p2, Brushes.Black, new RectangleF(50, y += 20, ancho, 20));
+                e.Graphics.DrawString("Sub Total RD$                " + subTotalDescuento?.ToString("0.00").PadRight(0), font_p2, Brushes.Black, new RectangleF(50, y += 20, ancho, 20));
                 e.Graphics.DrawString("Descuento RD$              " + venta.Descuento?.ToString("0.00").PadRight(0), font_p2, Brushes.Black, new RectangleF(50, y += 20, ancho, 20));
-                e.Graphics.DrawString("Total RD$                      " + subTotalDescuento?.ToString("0.00").PadRight(0), font_p2, Brushes.Black, new RectangleF(50, y += 20, ancho, 20));
+                e.Graphics.DrawString("Total RD$                      " + venta.Total?.ToString("0.00").PadRight(0), font_p2, Brushes.Black, new RectangleF(50, y += 20, ancho, 20));
 
 
                 e.Graphics.DrawString("Servicio, calidad y eficiencia, todo en uno.", font_p2, Brushes.Black, new RectangleF(20, y += 80, ancho, 20));
