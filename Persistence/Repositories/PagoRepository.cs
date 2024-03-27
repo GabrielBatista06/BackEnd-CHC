@@ -104,7 +104,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
             //TODO
 
             //Ruta Imagen
-            string imagen = @"C:\Users\Angelo Santana\Desktop\Proyectos\Comercial Hermanos castro\FrontEnd\src\assets\img\Logo.jpeg";
+           const string  imagen = @"C:\Users\Angelo Santana\Desktop\Proyectos\Comercial Hermanos castro\FrontEnd\src\assets\img\Logo.jpeg";
             // Definir el contenido a imprimir
             Font font = new Font("Tahoma", 14);
             Font font_p = new Font("Tahoma", 8);
