@@ -8,5 +8,6 @@ namespace ComercialHermanosCastro.Domain.IRepositories
     {
         Task<bool> GenerarCuentaPendiente(CuentasPendientesDto cuentasPendientesDto);
         Task<List<CuentasPendientesDto>> Lista();
+        Task<TotalPendienteGeneralDto> Resumen();
     }
 }

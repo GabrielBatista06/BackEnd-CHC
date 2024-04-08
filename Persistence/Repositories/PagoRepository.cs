@@ -3,9 +3,12 @@ using ComercialHermanosCastro.Domain.IRepositories;
 using ComercialHermanosCastro.Domain.Models;
 using ComercialHermanosCastro.DTOs;
 using ComercialHermanosCastro.Persistence.DbContext;
+using ComercialHermanosCastro.Utils;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Printing;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,15 +19,18 @@ namespace ComercialHermanosCastro.Persistence.Repositories
 
         private readonly AplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IGenericRepository<Pago> _pagoRepository;
 
-        public PagoRepository(AplicationDbContext context, IMapper mapper)
+        public PagoRepository(AplicationDbContext context, IMapper mapper, IGenericRepository<Pago> pagoRepository)
         {
             _context = context;
             _mapper = mapper;
+            _pagoRepository = pagoRepository;
         }
 
         public async Task<bool> RealizarPago(PagoDto pagoDto)
         {
+          
             int CantidadDigitos = 6;
             //usaremos transacion, ya que si ocurre un error en algun insert a una tabla, debe reestablecer todo a cero, como si no hubo o no existió ningun insert
             using (var transaction = _context.Database.BeginTransaction())
@@ -86,6 +92,80 @@ namespace ComercialHermanosCastro.Persistence.Repositories
             return true;
         }
 
+        public async Task<PagosMesDto> TotalIngresosPagos(string? anoActual)
+        {
+            if (anoActual == null)
+            {
+                anoActual = DateTime.Now.Year.ToString();
+            }
+             
+            PagosMesDto pagosMesDto = new PagosMesDto();
+            try
+            {
+                IQueryable<Pago> _pagoQuery = await _pagoRepository.Consultar();
+
+                if (_pagoQuery.Count() > 0)
+                {
+
+                    // Utilizamos LINQ para agrupar los pagos por mes y calcular el total de pagos en cada mes
+                    var pagosPorMes = _pagoQuery
+                        .Where(c => c.fechaPago.Value.Year.ToString() == anoActual.ToString())
+                        .GroupBy(p => p.fechaPago.Value.Month) // Agrupar por mes
+                        .Select(g => new
+                        {
+                            Mes = g.Key,
+                            TotalPagos = g.Sum(p => p.montoPagado)
+                        });
+
+                    List<PagosMes> listaPagosMesDtos = new List<PagosMes>();
+
+                    foreach (var pagoMes in pagosPorMes)
+                    {
+                        listaPagosMesDtos.Add(new PagosMes()
+                        {
+                            Mes = Enum.GetName(typeof(EnumMesesDelAno), pagoMes.Mes),
+                            Total = pagoMes.TotalPagos?.ToString()
+
+                        });
+
+                    }
+                    pagosMesDto.PagosMesTotal = listaPagosMesDtos;
+                    pagosMesDto.TotalCobrosGeneral = await TotalIngresosGeneralCobros();
+                }
+
+
+            }
+            catch
+            {
+                throw;
+            }
+            return pagosMesDto;
+        }
+
+        public async Task<string> TotalIngresosGeneralCobros()
+        {
+            decimal resultado = 0;
+            try
+            {
+                IQueryable<Pago> _cuentasQuery = await _pagoRepository.Consultar();
+
+                if (_cuentasQuery.Count() > 0)
+                {
+
+
+                    resultado = _cuentasQuery
+                         .Select(v => v.montoPagado)
+                         .Sum(v => v.Value);
+                }
+
+
+                return resultado.ToString("#,##0.00", CultureInfo.InvariantCulture);
+            }
+            catch
+            {
+                throw;
+            }
+        }
 
         static void PrintText(Cliente cliente, Usuario usuario, CuentasPendiente cuentasPendientes, PagoDto pagoDto, string _numeroVenta)
         {
@@ -104,7 +184,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
             //TODO
 
             //Ruta Imagen
-           const string  imagen = @"C:\Users\Angelo Santana\Desktop\Proyectos\Comercial Hermanos castro\FrontEnd\src\assets\img\Logo.jpeg";
+            const string imagen = @"C:\Users\Angelo Santana\Desktop\Proyectos\Comercial Hermanos castro\FrontEnd\src\assets\img\Logo.jpeg";
             // Definir el contenido a imprimir
             Font font = new Font("Tahoma", 14);
             Font font_p = new Font("Tahoma", 8);
@@ -148,4 +228,6 @@ namespace ComercialHermanosCastro.Persistence.Repositories
 
 
     }
+
+
 }

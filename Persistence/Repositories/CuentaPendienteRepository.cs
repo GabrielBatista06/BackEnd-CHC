@@ -5,6 +5,7 @@ using ComercialHermanosCastro.DTOs;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -58,6 +59,40 @@ namespace ComercialHermanosCastro.Persistence.Repositories
             catch (Exception)
             {
 
+                throw;
+            }
+        }
+
+        public async Task<TotalPendienteGeneralDto> Resumen()
+        {
+            TotalPendienteGeneralDto pendienteGeneralDto = new TotalPendienteGeneralDto();
+            pendienteGeneralDto.TotalPendienteGeneralCredito = await TotalIngresosGeneralCredito();
+
+            return pendienteGeneralDto;
+        }
+
+
+        public async Task<string> TotalIngresosGeneralCredito()
+        {
+            decimal resultado = 0;
+            try
+            {
+                IQueryable<CuentasPendiente> _cuentasQuery = await _cuentaRepository.Consultar();
+
+                if (_cuentasQuery.Count() > 0)
+                {
+
+
+                    resultado = _cuentasQuery
+                         .Select(v => v.Total)
+                         .Sum(v => v.Value);
+                }
+
+
+                return resultado.ToString("#,##0.00", CultureInfo.InvariantCulture);
+            }
+            catch
+            {
                 throw;
             }
         }

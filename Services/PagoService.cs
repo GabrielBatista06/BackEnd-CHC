@@ -18,5 +18,10 @@ namespace ComercialHermanosCastro.Services
         {
             return _pagoRepository.RealizarPago(pagoDto);
         }
+
+        public Task<PagosMesDto> TotalIngresosPagos(string? anoActual)
+        {
+            return _pagoRepository.TotalIngresosPagos(anoActual);
+        }
     }
 }

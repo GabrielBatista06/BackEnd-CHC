@@ -88,6 +88,9 @@ namespace ComercialHermanosCastro.ProfileAutoMapper
                     destino.Apellidos,
                     opt => opt.MapFrom(origen => origen.IdClienteNavigation.Apellidos)
                 ).ForMember(destino =>
+                    destino.Apodo,
+                    opt => opt.MapFrom(origen => origen.IdClienteNavigation.Apodo)
+                ).ForMember(destino =>
                     destino.Total,
                     opt => opt.MapFrom(origen => Convert.ToString(origen.Total, new CultureInfo("es-PE"))));
 
@@ -110,6 +113,18 @@ namespace ComercialHermanosCastro.ProfileAutoMapper
                 ).ForMember(destino =>
                     destino.TotalVenta,
                     opt => opt.MapFrom(origen => Convert.ToString(origen.IdVentaNavigation.Total.Value, new CultureInfo("es-PE")))
+                ).ForMember(destino =>
+                    destino.TipoPago,
+                    opt => opt.MapFrom(origen => Convert.ToString(origen.IdVentaNavigation.TipoPago))
+                ).ForMember(destino =>
+                    destino.TipoVenta,
+                    opt => opt.MapFrom(origen => Convert.ToString(origen.IdVentaNavigation.TipoVenta))
+                ).ForMember(destino =>
+                    destino.Comision,
+                    opt => opt.MapFrom(origen => Convert.ToString(origen.IdVentaNavigation.Comision))
+                ).ForMember(destino =>
+                    destino.Descuento,
+                    opt => opt.MapFrom(origen => Convert.ToString(origen.IdVentaNavigation.Descuento))
                 )
                 .ForMember(destino =>
                     destino.Producto,

@@ -6,10 +6,10 @@ namespace ComercialHermanosCastro.DTOs
     {
         public int IdVenta { get; set; }
         public int? IdCliente { get; set; }
-        public string NombreCliente { get; set; }
+        public string? NombreCliente { get; set; }
         public int? Usuario { get; set; }
-        public string NumeroDocumento { get; set; }
-        public string TipoVenta { get; set; }
+        public string? NumeroDocumento { get; set; }
+        public string? TipoVenta { get; set; }
         public string? FechaRegistro { get; set; }
         public string? Total { get; set; }
         public int? DiaPago { get; set; }

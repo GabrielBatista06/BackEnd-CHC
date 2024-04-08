@@ -16,12 +16,12 @@ namespace ComercialHermanosCastro.Domain.Models
         public int? Usuario { get; set; }
         [ForeignKey("idCliente")]
         public int? IdCliente { get; set; }
-        public string NumeroDocumento { get; set; }
+        public string? NumeroDocumento { get; set; }
         public DateTime? FechaRegistro { get; set; }
         public decimal? Total { get; set; }
         public int? DiaPago { get; set; }
         public decimal? Comision { get; set; }
-        public string TipoVenta { get; set; }
+        public string? TipoVenta { get; set; }
         public decimal? Descuento { get; set; }
         public string? TipoPago { get; set; }
         public virtual Usuario UsuarioNavigation { get; set; }

@@ -6,5 +6,6 @@ namespace ComercialHermanosCastro.Domain.IServices
     public interface IPagoService
     {
         Task<bool> RealizarPago(PagoDto pagoDto);
+        Task<PagosMesDto> TotalIngresosPagos(string? anoActual);
     }
 }

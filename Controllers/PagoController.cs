@@ -1,5 +1,6 @@
 ﻿using ComercialHermanosCastro.Domain.IServices;
 using ComercialHermanosCastro.DTOs;
+using ComercialHermanosCastro.Services;
 using ComercialHermanosCastro.Utils;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -35,6 +36,25 @@ namespace ComercialHermanosCastro.Controllers
                 result.status = false;
                 result.msg = ex.Message;
             }
+            return Ok(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Resumen(string? anoActual)
+        {
+            var result = new Response<PagosMesDto>();
+            try
+            {
+                result.status = true;
+                result.value = await _pagoService.TotalIngresosPagos(anoActual);
+            }
+            catch (Exception ex)
+            {
+
+                result.status = false;
+                result.msg = ex.Message;
+            }
+
             return Ok(result);
         }
     }

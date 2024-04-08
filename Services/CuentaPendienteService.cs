@@ -24,5 +24,10 @@ namespace ComercialHermanosCastro.Services
         {
             return await _repository.Lista();
         }
+
+        public async Task<TotalPendienteGeneralDto> Resumen()
+        {
+            return await _repository.Resumen();
+        }
     }
 }

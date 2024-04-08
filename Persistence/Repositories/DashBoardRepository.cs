@@ -2,6 +2,7 @@
 using ComercialHermanosCastro.Domain.IRepositories;
 using ComercialHermanosCastro.Domain.Models;
 using ComercialHermanosCastro.DTOs;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -30,9 +31,13 @@ namespace ComercialHermanosCastro.Persistence.Repositories
             DashBoardDTO dashBoardDTO = new DashBoardDTO();
             try
             {
+                dashBoardDTO.TotalIngresosGeneral = await TotalIngresosGeneral();
+                dashBoardDTO.TotalIngresosGeneralContado = await TotalIngresosGeneralContado();
+                dashBoardDTO.TotalIngresosGeneralCredito = await TotalIngresosGeneralCredito();
                 dashBoardDTO.TotalVentas = await TotalVentasUltimaSemana();
                 dashBoardDTO.TotalIngresos = await TotalIngresosUltimaSemana();
                 dashBoardDTO.TotalProductos = await TotalProductos();
+                
 
                 List<VentasSemanaDto> listaVentasSemanaDtos = new List<VentasSemanaDto>();
 
@@ -66,7 +71,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
             return tablaVenta.Where(v => v.FechaRegistro.Value.Date >= ultimaFecha.Value.Date);
         }
 
-        public async Task<int> TotalVentasUltimaSemana()
+        public async Task<string> TotalVentasUltimaSemana()
         {
             int total = 0;
             try
@@ -80,7 +85,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
                     total = tablaVenta.Count();
                 }
 
-                return total;
+                return total.ToString("#,##0.00", CultureInfo.InvariantCulture);
             }
             catch
             {
@@ -105,7 +110,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
                 }
 
 
-                return Convert.ToString(resultado, new CultureInfo("es-PE"));
+                return resultado.ToString("#,##0.00", CultureInfo.InvariantCulture);
             }
             catch
             {
@@ -114,13 +119,13 @@ namespace ComercialHermanosCastro.Persistence.Repositories
 
         }
 
-        public async Task<int> TotalProductos()
+        public async Task<string> TotalProductos()
         {
             try
             {
                 IQueryable<Producto> query = await _productoRepository.Consultar();
                 int total = query.Count();
-                return total;
+                return total.ToString("#,##0.00", CultureInfo.InvariantCulture);
             }
             catch
             {
@@ -155,5 +160,80 @@ namespace ComercialHermanosCastro.Persistence.Repositories
             }
 
         }
+
+        public async Task<string> TotalIngresosGeneral()
+        {
+            decimal resultado = 0;
+            try
+            {
+                IQueryable<Ventas> _ventaQuery = await _ventaRepository.Consultar();
+
+                if (_ventaQuery.Count() > 0)
+                {
+
+
+                    resultado = _ventaQuery
+                         .Select(v => v.Total)
+                         .Sum(v => v.Value);
+                }
+
+
+                return resultado.ToString("#,##0.00", CultureInfo.InvariantCulture);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        public async Task<string> TotalIngresosGeneralContado()
+        {
+            decimal resultado = 0;
+            try
+            {
+                IQueryable<Ventas> _ventaQuery = await _ventaRepository.Consultar();
+
+                if (_ventaQuery.Count() > 0)
+                {
+
+
+                    resultado = _ventaQuery.Where(c => c.TipoVenta == "contado")
+                         .Select(v => v.Total)
+                         .Sum(v => v.Value);
+                }
+
+
+                return resultado.ToString("#,##0.00", CultureInfo.InvariantCulture);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public async Task<string> TotalIngresosGeneralCredito()
+        {
+            decimal resultado = 0;
+            try
+            {
+                IQueryable<Ventas> _ventaQuery = await _ventaRepository.Consultar();
+
+                if (_ventaQuery.Count() > 0)
+                {
+
+
+                    resultado = _ventaQuery.Where(c => c.TipoVenta == "credito")
+                         .Select(v => v.Total)
+                         .Sum(v => v.Value);
+                }
+
+
+                return resultado.ToString("#,##0.00", CultureInfo.InvariantCulture);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
     }
 }

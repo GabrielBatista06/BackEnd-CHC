@@ -37,5 +37,25 @@ namespace ComercialHermanosCastro.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet]
+        [Route("totalPendiente")]
+        public async Task<IActionResult> Resumen()
+        {
+            var result = new Response<TotalPendienteGeneralDto>();
+            try
+            {
+                result.status = true;
+                result.value = await _cuentaPendienteService.Resumen();
+            }
+            catch (Exception ex)
+            {
+
+                result.status = false;
+                result.msg = ex.Message;
+            }
+
+            return Ok(result);
+        }
     }
 }
