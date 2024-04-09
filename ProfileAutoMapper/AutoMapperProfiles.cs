@@ -40,6 +40,15 @@ namespace ComercialHermanosCastro.ProfileAutoMapper
                     opt => opt.MapFrom(origen => origen.IdClienteNavigation.Nombre)).ForMember(destino =>
                 destino.Comision,
                 opt => opt.MapFrom(origen => Convert.ToString(origen.Comision.Value, new CultureInfo("es-PE")))
+                ).ForMember(destino =>
+                    destino.ApellidosCliente,
+                    opt => opt.MapFrom(origen => Convert.ToString(origen.IdClienteNavigation.Apellidos))
+                ).ForMember(destino =>
+                    destino.Apodo,
+                    opt => opt.MapFrom(origen => Convert.ToString(origen.IdClienteNavigation.Apodo))
+                ) .ForMember(destino =>
+                    destino.Cedula,
+                    opt => opt.MapFrom(origen => Convert.ToString(origen.IdClienteNavigation.Cedula))
                 );
 
             CreateMap<VentaDto, Ventas>().ForMember(destino =>
@@ -125,6 +134,18 @@ namespace ComercialHermanosCastro.ProfileAutoMapper
                 ).ForMember(destino =>
                     destino.Descuento,
                     opt => opt.MapFrom(origen => Convert.ToString(origen.IdVentaNavigation.Descuento))
+                ).ForMember(destino =>
+                    destino.NombreCliente,
+                    opt => opt.MapFrom(origen => Convert.ToString(origen.IdVentaNavigation.IdClienteNavigation.Nombre))
+                ).ForMember(destino =>
+                    destino.ApellidosCliente,
+                    opt => opt.MapFrom(origen => Convert.ToString(origen.IdVentaNavigation.IdClienteNavigation.Apellidos))
+                ).ForMember(destino =>
+                    destino.Cedula,
+                    opt => opt.MapFrom(origen => Convert.ToString(origen.IdVentaNavigation.IdClienteNavigation.Cedula))
+                ).ForMember(destino =>
+                    destino.Apodo,
+                    opt => opt.MapFrom(origen => Convert.ToString(origen.IdVentaNavigation.IdClienteNavigation.Apodo))
                 )
                 .ForMember(destino =>
                     destino.Producto,

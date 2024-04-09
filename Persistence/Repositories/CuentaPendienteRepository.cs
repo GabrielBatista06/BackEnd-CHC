@@ -53,6 +53,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
                 int diaActual = DateTime.Now.Day;
 
                 var result = _mapper.Map<List<CuentasPendientesDto>>(listaCuentasPendientes.ToList().Where(q => q.Total > 0)).OrderBy(o => o.DiaPago == diaActual ? 0 : 1).ThenBy(o => o.DiaPago).ToList();
+                
 
                 return result;
             }
