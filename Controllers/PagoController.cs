@@ -57,5 +57,25 @@ namespace ComercialHermanosCastro.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet]
+        [Route("reporte")]
+        public async Task<IActionResult> ResumenPagos()
+        {
+            var result = new Response<DashBoardPagosSemanaDto>();
+            try
+            {
+                result.status = true;
+                result.value = await _pagoService.Resumen();
+            }
+            catch (Exception ex)
+            {
+
+                result.status = false;
+                result.msg = ex.Message;
+            }
+
+            return Ok(result);
+        }
     }
 }

@@ -14,14 +14,20 @@ namespace ComercialHermanosCastro.Services
             _pagoRepository = pagoRepository;
         }
 
-        public Task<bool> RealizarPago(PagoDto pagoDto)
+        public async Task<bool> RealizarPago(PagoDto pagoDto)
         {
-            return _pagoRepository.RealizarPago(pagoDto);
+            return await _pagoRepository.RealizarPago(pagoDto);
         }
 
-        public Task<PagosMesDto> TotalIngresosPagos(string? anoActual)
+        public async Task<PagosMesDto> TotalIngresosPagos(string? anoActual)
         {
-            return _pagoRepository.TotalIngresosPagos(anoActual);
+            return await _pagoRepository.TotalIngresosPagos(anoActual);
         }
+
+        public async Task<DashBoardPagosSemanaDto> Resumen()
+        {
+             return await _pagoRepository.Resumen();
+        }
+
     }
 }

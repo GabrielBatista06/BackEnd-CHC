@@ -30,7 +30,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
 
         public async Task<bool> RealizarPago(PagoDto pagoDto)
         {
-          
+
             int CantidadDigitos = 6;
             //usaremos transacion, ya que si ocurre un error en algun insert a una tabla, debe reestablecer todo a cero, como si no hubo o no existió ningun insert
             using (var transaction = _context.Database.BeginTransaction())
@@ -92,13 +92,44 @@ namespace ComercialHermanosCastro.Persistence.Repositories
             return true;
         }
 
+        public async Task<DashBoardPagosSemanaDto> Resumen()
+        {
+            DashBoardPagosSemanaDto dashBoardDTO = new DashBoardPagosSemanaDto();
+            try
+            {
+                dashBoardDTO.TotalPagos = await TotalPagosUltimaSemana();
+                dashBoardDTO.TotalIngresos = await TotalIngresosUltimaSemana();
+
+
+                List<PagosUltimaSemanaDto> listaPagosSemanaDtos = new List<PagosUltimaSemanaDto>();
+
+                foreach (KeyValuePair<string, decimal?> item in await PagosUltimaSemana())
+                {
+                    listaPagosSemanaDtos.Add(new PagosUltimaSemanaDto()
+                    {
+                        Fecha = item.Key,
+                        Total = item.Value
+                    });
+                }
+
+                dashBoardDTO.PagosUltimaSemana = listaPagosSemanaDtos;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return dashBoardDTO;
+        }
         public async Task<PagosMesDto> TotalIngresosPagos(string? anoActual)
         {
             if (anoActual == null)
             {
                 anoActual = DateTime.Now.Year.ToString();
             }
-             
+
             PagosMesDto pagosMesDto = new PagosMesDto();
             try
             {
@@ -165,6 +196,91 @@ namespace ComercialHermanosCastro.Persistence.Repositories
             {
                 throw;
             }
+        }
+
+        public async Task<string> TotalIngresosUltimaSemana()
+        {
+            decimal resultado = 0;
+            try
+            {
+                IQueryable<Pago> _pagoQuery = await _pagoRepository.Consultar();
+
+                if (_pagoQuery.Count() > 0)
+                {
+                    var tablaPago = retornarVenta(_pagoQuery, -7);
+
+                    resultado = tablaPago
+                         .Select(v => v.montoPagado)
+                         .Sum(v => v.Value);
+                }
+
+
+                return resultado.ToString("#,##0.00", CultureInfo.InvariantCulture);
+            }
+            catch
+            {
+                throw;
+            }
+
+        }
+
+        public async Task<string> TotalPagosUltimaSemana()
+        {
+            int total = 0;
+            try
+            {
+                IQueryable<Pago> _pagoQuery = await _pagoRepository.Consultar();
+
+                if (_pagoQuery.Count() > 0)
+                {
+
+                    var tablaPago = retornarVenta(_pagoQuery, -7);
+                    total = tablaPago.Count();
+                }
+
+                return total.ToString("#,##0.00", CultureInfo.InvariantCulture);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public async Task<Dictionary<string, decimal?>> PagosUltimaSemana()
+        {
+            Dictionary<string, decimal?> resultado = new Dictionary<string, decimal?>();
+            try
+            {
+                IQueryable<Pago> _ventaQuery = await _pagoRepository.Consultar();
+                if (_ventaQuery.Count() > 0)
+                {
+
+                    var tablaVenta = retornarVenta(_ventaQuery, -7);
+
+                    resultado = tablaVenta
+                        .GroupBy(v => v.fechaPago.Value.Date).OrderBy(g => g.Key)
+                        .Select(dv => new { fecha = dv.Key.ToString("dd/MM/yyyy"), total = dv.Sum(p => p.montoPagado) })
+                        .ToDictionary(keySelector: r => r.fecha, elementSelector: r => r.total);
+                }
+
+                return resultado;
+
+            }
+            catch
+            {
+                throw;
+            }
+
+        }
+
+
+        private IQueryable<Pago> retornarVenta(IQueryable<Pago> tablaVenta, int restarCantidadDias)
+        {
+            DateTime? ultimaFecha = tablaVenta.OrderByDescending(v => v.fechaPago).Select(v => v.fechaPago).First();
+
+            ultimaFecha = ultimaFecha.Value.AddDays(restarCantidadDias);
+
+            return tablaVenta.Where(v => v.fechaPago.Value.Date >= ultimaFecha.Value.Date);
         }
 
         static void PrintText(Cliente cliente, Usuario usuario, CuentasPendiente cuentasPendientes, PagoDto pagoDto, string _numeroVenta)

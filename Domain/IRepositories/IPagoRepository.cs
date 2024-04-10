@@ -7,5 +7,6 @@ namespace ComercialHermanosCastro.Domain.IRepositories
     {
         Task<bool> RealizarPago(PagoDto pagoDto);
         Task<PagosMesDto> TotalIngresosPagos(string? anoActual);
+        Task<DashBoardPagosSemanaDto> Resumen();
     }
 }

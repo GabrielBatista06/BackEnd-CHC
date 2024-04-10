@@ -109,7 +109,6 @@ namespace ComercialHermanosCastro.Persistence.Repositories
                          .Sum(v => v.Value);
                 }
 
-
                 return resultado.ToString("#,##0.00", CultureInfo.InvariantCulture);
             }
             catch
@@ -150,7 +149,6 @@ namespace ComercialHermanosCastro.Persistence.Repositories
                         .ToDictionary(keySelector: r => r.fecha, elementSelector: r => r.total);
                 }
 
-
                 return resultado;
 
             }
@@ -177,7 +175,6 @@ namespace ComercialHermanosCastro.Persistence.Repositories
                          .Sum(v => v.Value);
                 }
 
-
                 return resultado.ToString("#,##0.00", CultureInfo.InvariantCulture);
             }
             catch
@@ -200,7 +197,6 @@ namespace ComercialHermanosCastro.Persistence.Repositories
                          .Select(v => v.Total)
                          .Sum(v => v.Value);
                 }
-
 
                 return resultado.ToString("#,##0.00", CultureInfo.InvariantCulture);
             }
