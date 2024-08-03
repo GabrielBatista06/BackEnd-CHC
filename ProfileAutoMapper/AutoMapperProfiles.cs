@@ -10,7 +10,7 @@ namespace ComercialHermanosCastro.ProfileAutoMapper
     {
         public AutoMapperProfiles()
         {
-            CreateMap<Cliente, CrearClienteDto>().ReverseMap();
+            CreateMap<Cliente, CrearClienteDto>().ReverseMap();       
             CreateMap<Cliente, ClienteDto>().ReverseMap();
             CreateMap<Pago, PagoDto>().ReverseMap();
             CreateMap<Usuario, UsuarioDto>().ReverseMap();

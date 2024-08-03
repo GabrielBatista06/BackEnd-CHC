@@ -4,6 +4,7 @@ using ComercialHermanosCastro.Domain.Models;
 using ComercialHermanosCastro.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ComercialHermanosCastro.Persistence.Repositories
@@ -25,7 +26,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
             {
                 var wrkqryProducto = await _productoRepository.Consultar();
 
-                return _mapper.Map<List<ProductoDto>>(wrkqryProducto);
+                return _mapper.Map<List<ProductoDto>>(wrkqryProducto).OrderBy(O => O.Nombre).ToList();
             }
             catch (Exception)
             {

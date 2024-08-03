@@ -1,4 +1,5 @@
 ﻿using ComercialHermanosCastro.Domain.Models;
+using ComercialHermanosCastro.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace ComercialHermanosCastro.Persistence.DbContext
@@ -19,6 +20,7 @@ namespace ComercialHermanosCastro.Persistence.DbContext
         public DbSet<Ventas> Venta { get; set; }
         public DbSet<Pago> Pagos { get; set; }
         public DbSet<NumeroDocumentoPago> NumeroDocumentosPagos { get; set; }
+        public DbSet<CuentasPendientesAtrasadasDto> CuentasPendientesAtrasadasDtos { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -113,7 +115,11 @@ namespace ComercialHermanosCastro.Persistence.DbContext
                     .HasColumnType("decimal(10, 2)")
                     .HasColumnName("comision");
 
-                entity.HasOne(d => d.UsuarioNavigation)
+              entity.Property(e => e.PagoInicial)
+                    .HasColumnType("decimal(10, 2)")
+                    .HasColumnName("pagoInicial");
+
+               entity.HasOne(d => d.UsuarioNavigation)
                     .WithMany()
                     .HasForeignKey(d => d.Usuario)
                     .HasConstraintName("FK__DetalleVe__idVen__25869647");

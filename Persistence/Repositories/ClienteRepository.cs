@@ -6,6 +6,7 @@ using ComercialHermanosCastro.Persistence.DbContext;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ComercialHermanosCastro.Persistence.Repositories
@@ -20,7 +21,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
             _context = context;
             _mapper = mapper;
         }
-        public async Task CrearCliente(CrearClienteDto crearClienteDto)
+        public async Task <ClienteDto>CrearCliente(CrearClienteDto crearClienteDto)
         {
             crearClienteDto.Activo = true;
             crearClienteDto.FechaCreacion = DateTime.Now;
@@ -30,6 +31,8 @@ namespace ComercialHermanosCastro.Persistence.Repositories
             _context.Add(result);
 
             await _context.SaveChangesAsync();
+
+            return _mapper.Map<ClienteDto>(result);
         }
 
         public async Task<bool> EditarCliente(int id, ClienteDto clienteDto)
@@ -66,7 +69,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
         {
             var clientes = await _context.Clientes.ToListAsync();
 
-            return _mapper.Map<List<ClienteDto>>(clientes);
+            return _mapper.Map<List<ClienteDto>>(clientes).OrderBy(O =>O.Nombre).ToList();
         }
     }
 }

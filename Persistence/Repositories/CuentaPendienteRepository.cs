@@ -2,6 +2,7 @@
 using ComercialHermanosCastro.Domain.IRepositories;
 using ComercialHermanosCastro.Domain.Models;
 using ComercialHermanosCastro.DTOs;
+using ComercialHermanosCastro.Persistence.DbContext;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,15 +16,18 @@ namespace ComercialHermanosCastro.Persistence.Repositories
     {
         private readonly IGenericRepository<CuentasPendiente> _cuentaRepository;
         private readonly IMapper _mapper;
+        private readonly AplicationDbContext _context;
 
         public CuentaPendienteRepository(IGenericRepository<CuentasPendiente> cuentaRepository,
-                                                                        IMapper mapper)
+                                                                        IMapper mapper,
+                                                                        AplicationDbContext context)
         {
             _cuentaRepository = cuentaRepository;
             _mapper = mapper;
+            _context = context;
         }
 
-        public async Task<bool> GenerarCuentaPendiente(CuentasPendientesDto cuentasPendientesDto)
+        public async Task<int> GenerarCuentaPendiente(CuentasPendientesDto cuentasPendientesDto)
         {
             try
             {
@@ -34,7 +38,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
                     throw new TaskCanceledException("No se pudo generar la cuenta");
                 }
 
-                return true;
+                return crearCuenta.Id;
             }
             catch (Exception)
             {
@@ -62,6 +66,15 @@ namespace ComercialHermanosCastro.Persistence.Repositories
 
                 throw;
             }
+        }
+
+        public async Task<List<CuentasPendientesAtrasadasDto>> ListaCuentasAtraso()
+        {
+                  var  result = await _context.CuentasPendientesAtrasadasDtos
+             .FromSqlRaw("EXEC sp_GetCuentasPendientesAtrasadas")
+             .ToListAsync();
+
+            return result.ToList();
         }
 
         public async Task<TotalPendienteGeneralDto> Resumen()

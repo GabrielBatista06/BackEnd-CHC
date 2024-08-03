@@ -20,7 +20,7 @@ namespace ComercialHermanosCastro.DTOs
         public int? cuotas { get; set; }
         public decimal? Descuento { get; set; }
         public string? TipoPago { get; set; }
-
+        public decimal? PagoInicial { get; set; }
         public virtual ICollection<DetalleVentaDto> DetalleVenta { get; set; }
     }
 }

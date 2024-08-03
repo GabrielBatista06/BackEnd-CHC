@@ -20,13 +20,33 @@ namespace ComercialHermanosCastro.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ListaProducto()
+        public async Task<IActionResult> ListaCuentasPendientes()
         {
             var result = new Response<List<CuentasPendientesDto>>();
             try
             {
                 result.status = true;
                 result.value = await _cuentaPendienteService.Lista();
+            }
+            catch (Exception ex)
+            {
+
+                result.status = false;
+                result.msg = ex.Message;
+            }
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("cuentasPendientesAtrasadas")]
+        public async Task<IActionResult> ListaCuentasPendientesAtrasadas()
+        {
+            var result = new Response<List<CuentasPendientesAtrasadasDto>>();
+            try
+            {
+                result.status = true;
+                result.value = await _cuentaPendienteService.ListaCuentasAtraso();
             }
             catch (Exception ex)
             {

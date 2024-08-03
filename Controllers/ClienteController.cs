@@ -1,5 +1,6 @@
 ﻿using ComercialHermanosCastro.Domain.IServices;
 using ComercialHermanosCastro.DTOs;
+using ComercialHermanosCastro.Services;
 using ComercialHermanosCastro.Utils;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -39,30 +40,61 @@ namespace ComercialHermanosCastro.Controllers
         [HttpPost]
         public async Task<IActionResult> crearCliente([FromBody] CrearClienteDto cliente)
         {
+            //try
+            //{
+
+            //    await _clienteService.CrearCliente(cliente);
+            //    return Ok(new { message = "Cliente registrado de manera exitosa" });
+            //}
+            //catch (Exception ex)
+            //{
+
+            //    return BadRequest(ex.Message);
+            //}
+            var result = new Response<ClienteDto>();
+
             try
             {
-
-                await _clienteService.CrearCliente(cliente);
-                return Ok(new { message = "Cliente registrado de manera exitosa" });
+                result.status = true;
+                result.value = await _clienteService.CrearCliente(cliente);
             }
             catch (Exception ex)
             {
 
-                return BadRequest(ex.Message);
+                result.status = false;
+                result.msg = ex.Message;
             }
+            return Ok(result);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, ClienteDto clienteDto)
         {
-            var result = await  _clienteService.EditarCliente(id, clienteDto); 
+            //    var result = await  _clienteService.EditarCliente(id, clienteDto); 
 
-            if (result == false)
+            //    if (result == false)
+            //    {
+            //        return NotFound();
+            //    }
+
+            //    return Ok(new { message = "Cliente actualizado con éxito" });
+            //}
+
+            var result = new Response<bool>();
+
+            try
             {
-                return NotFound();
+                result.status = true;
+                result.value = await _clienteService.EditarCliente(id, clienteDto);
             }
+            catch (Exception ex)
+            {
 
-            return Ok(new { message = "Cliente actualizado con éxito" });
+                result.status = false;
+                result.msg = ex.Message;
+            }
+            return Ok(result);
         }
     }
 }
+

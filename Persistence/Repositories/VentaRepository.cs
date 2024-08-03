@@ -61,14 +61,29 @@ namespace ComercialHermanosCastro.Persistence.Repositories
                 else if (venta.TipoVenta != "contado")
                 {
                     cuentasPendientesDto.IdCliente = venta.IdCliente;
-                    cuentasPendientesDto.Total = Convert.ToDecimal(venta.Total);
+                    cuentasPendientesDto.Total = Convert.ToDecimal(venta.Total) - venta.PagoInicial;
                     cuentasPendientesDto.DiaPago = venta.DiaPago;
                     cuentasPendientesDto.cuotas = venta.cuotas;
                     cuentasPendientesDto.valorCuota = cuentasPendientesDto.Total / venta.cuotas;
                     cuentasPendientesDto.fechaRegistro = DateTime.Now;
                     cuentasPendientesDto.numeroDocumento = ventaGenerada.NumeroDocumento;
 
-                    await _cuentaPendiente.GenerarCuentaPendiente(cuentasPendientesDto);
+                    var resultIdCuentaPendiente = await _cuentaPendiente.GenerarCuentaPendiente(cuentasPendientesDto);
+
+                    //Creamos objeto para registrar el pago
+                    Pago pago = new Pago
+                    {
+                        usuarioCobro = venta.Usuario,
+                        idcuentaPendiente = resultIdCuentaPendiente,
+                        balanceAnterior = Convert.ToDecimal(venta.Total),
+                        montoPagado = venta.PagoInicial,
+                        fechaPago = DateTime.Now,
+                        tipoPago = venta.TipoPago,
+                        numeroDocumento = ventaGenerada.NumeroDocumento
+                    };
+
+                    await _context.Pagos.AddAsync(pago);
+                    await _context.SaveChangesAsync();
                     PrintText(ventaGenerada, cliente, usuario, cuentasPendientesDto);
 
                     return _mapper.Map<VentaDto>(ventaGenerada);
@@ -176,6 +191,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
 
             decimal? subTotal = venta.Total - venta.Comision;
             decimal? subTotalDescuento = venta.Total + venta.Descuento;
+            decimal? TotalPagoInicial = venta.Total - venta.PagoInicial;
             string line = "------------------------------------------------------------------------";
 
             Image img = Image.FromFile(imagen);
@@ -214,7 +230,8 @@ namespace ComercialHermanosCastro.Persistence.Repositories
                 e.Graphics.DrawString(line, font_p, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
                 e.Graphics.DrawString("Sub Total RD$                " + subTotal?.ToString("0.00").PadRight(0), font_p2, Brushes.Black, new RectangleF(50, y += 20, ancho, 20));
                 e.Graphics.DrawString("Financiamiento RD$        " + venta.Comision?.ToString("0.00").PadRight(0), font_p2, Brushes.Black, new RectangleF(50, y += 20, ancho, 20));
-                e.Graphics.DrawString("Total RD$                      " + venta.Total?.ToString("0.00").PadRight(0), font_p2, Brushes.Black, new RectangleF(50, y += 20, ancho, 20));
+                e.Graphics.DrawString("Pago Inicial RD$         " + venta.PagoInicial?.ToString("0.00").PadRight(0), font_p2, Brushes.Black, new RectangleF(50, y += 20, ancho, 20));
+                e.Graphics.DrawString("Total RD$                      " + TotalPagoInicial?.ToString("0.00").PadRight(0), font_p2, Brushes.Black, new RectangleF(50, y += 20, ancho, 20));
 
 
                 e.Graphics.DrawString("Servicio, calidad y eficiencia, todo en uno.", font_p2, Brushes.Black, new RectangleF(20, y += 80, ancho, 20));

@@ -14,9 +14,9 @@ namespace ComercialHermanosCastro.Services
         {
             _clienteRepository = clienteRepository;
         }
-        public async Task CrearCliente(CrearClienteDto crearClienteDto)
+        public async Task<ClienteDto> CrearCliente(CrearClienteDto crearClienteDto)
         {
-            await _clienteRepository.CrearCliente(crearClienteDto);
+          return  await _clienteRepository.CrearCliente(crearClienteDto);
         }
 
         public async Task<bool> EditarCliente(int id, ClienteDto clienteDto)

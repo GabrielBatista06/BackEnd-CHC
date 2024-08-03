@@ -6,7 +6,7 @@ namespace ComercialHermanosCastro.Domain.IRepositories
 {
     public interface IClienteRepository
     {
-        Task CrearCliente(CrearClienteDto crearClienteDto);
+        Task<ClienteDto> CrearCliente(CrearClienteDto crearClienteDto);
          Task <List<ClienteDto>> GetCliente();
         Task< bool> EditarCliente(int id, ClienteDto clienteDto);
 

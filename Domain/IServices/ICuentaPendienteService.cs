@@ -6,8 +6,9 @@ namespace ComercialHermanosCastro.Domain.IServices
 {
     public interface ICuentaPendienteService
     {
-        Task<bool> GenerarCuentaPendiente(CuentasPendientesDto cuentasPendientesDto);
+        Task<int> GenerarCuentaPendiente(CuentasPendientesDto cuentasPendientesDto);
         Task<List<CuentasPendientesDto>> Lista();
+        Task<List<CuentasPendientesAtrasadasDto>> ListaCuentasAtraso();
         Task<TotalPendienteGeneralDto> Resumen();
     }
 }
