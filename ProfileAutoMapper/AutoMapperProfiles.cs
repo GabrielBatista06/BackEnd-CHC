@@ -3,6 +3,7 @@ using ComercialHermanosCastro.Domain.Models;
 using ComercialHermanosCastro.DTOs;
 using System;
 using System.Globalization;
+using static ComercialHermanosCastro.DTOs.PagosDiaContadoDto;
 
 namespace ComercialHermanosCastro.ProfileAutoMapper
 {
@@ -10,7 +11,7 @@ namespace ComercialHermanosCastro.ProfileAutoMapper
     {
         public AutoMapperProfiles()
         {
-            CreateMap<Cliente, CrearClienteDto>().ReverseMap();       
+            CreateMap<Cliente, CrearClienteDto>().ReverseMap();
             CreateMap<Cliente, ClienteDto>().ReverseMap();
             CreateMap<Pago, PagoDto>().ReverseMap();
             CreateMap<Usuario, UsuarioDto>().ReverseMap();
@@ -46,7 +47,7 @@ namespace ComercialHermanosCastro.ProfileAutoMapper
                 ).ForMember(destino =>
                     destino.Apodo,
                     opt => opt.MapFrom(origen => Convert.ToString(origen.IdClienteNavigation.Apodo))
-                ) .ForMember(destino =>
+                ).ForMember(destino =>
                     destino.Cedula,
                     opt => opt.MapFrom(origen => Convert.ToString(origen.IdClienteNavigation.Cedula))
                 );
@@ -159,8 +160,24 @@ namespace ComercialHermanosCastro.ProfileAutoMapper
                     destino.Total,
                     opt => opt.MapFrom(origen => Convert.ToString(origen.Total, new CultureInfo("es-PE")))
                 );
-            #endregion Reporte
 
+
+            CreateMap<Ventas, PagosContadoDto>()
+                .ForMember(destino =>
+                destino.TotalVenta,
+                opt => opt.MapFrom(origen => Convert.ToDecimal(origen.Total.Value, new CultureInfo("es-PE")))
+            ).ForMember(destino =>
+                destino.NombreCliente,
+                opt => opt.MapFrom(origen => Convert.ToString(origen.IdClienteNavigation.Nombre))
+            ).ForMember(destino =>
+                destino.ApellidosCliente,
+                opt => opt.MapFrom(origen => Convert.ToString(origen.IdClienteNavigation.Apellidos)))
+              .ForMember(destino =>
+                    destino.FechaRegistro,
+                    opt => opt.MapFrom(origen => origen.FechaRegistro.Value.ToString("dd/MM/yyyy"))
+                );
+
+            #endregion Reporte
 
         }
 

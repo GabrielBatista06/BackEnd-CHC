@@ -4,6 +4,7 @@ using ComercialHermanosCastro.Domain.Models;
 using ComercialHermanosCastro.DTOs;
 using ComercialHermanosCastro.Persistence.DbContext;
 using ComercialHermanosCastro.Utils;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -300,7 +301,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
             //TODO
 
             //Ruta Imagen
-            const string imagen = @"C:\Users\Angelo Santana\Desktop\Proyectos\Comercial Hermanos castro\FrontEnd\src\assets\img\Logo.jpeg";
+            const string imagen = @"C:\Users\Angelo Santana\Desktop\carpeta con todo\Proyectos\Comercial Hermanos castro\FrontEnd\assets\img\Logo.jpeg";
             // Definir el contenido a imprimir
             Font font = new Font("Tahoma", 14);
             Font font_p = new Font("Tahoma", 8);
@@ -341,8 +342,6 @@ namespace ComercialHermanosCastro.Persistence.Repositories
             e.Graphics.DrawString("------- Gracias por elegirnos --------", font_p2, Brushes.Black, new RectangleF(38, y += 20, ancho, 20));
 
         }
-
-
     }
 
 

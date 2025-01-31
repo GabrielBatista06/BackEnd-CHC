@@ -1,8 +1,10 @@
 ﻿using ComercialHermanosCastro.Domain.IRepositories;
 using ComercialHermanosCastro.Domain.IServices;
 using ComercialHermanosCastro.DTOs;
+using ComercialHermanosCastro.Persistence.Repositories;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using static ComercialHermanosCastro.DTOs.PagosDiaContadoDto;
 
 namespace ComercialHermanosCastro.Services
 {
@@ -28,6 +30,11 @@ namespace ComercialHermanosCastro.Services
         public async Task<List<ReporteDto>> Reporte(string fechaInicio, string fechaFin)
         {
             return await _ventaRepository.Reporte(fechaInicio, fechaFin);
+        }
+
+        public async Task<PagosDiaContadoDto> PagosDiaContado(string fechaInicio, string fechaFin)
+        {
+            return await _ventaRepository.PagosDiaContado(fechaInicio, fechaFin);
         }
     }
 }

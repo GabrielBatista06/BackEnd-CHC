@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace ComercialHermanosCastro.Persistence.Repositories
@@ -71,5 +72,38 @@ namespace ComercialHermanosCastro.Persistence.Repositories
 
             return _mapper.Map<List<ClienteDto>>(clientes).OrderBy(O =>O.Nombre).ToList();
         }
+
+        public async Task <bool> ValidaCedula(string cedula)
+        {
+            // Base URL del servicio
+            string baseUrl = "https://api.digital.gob.do/v3/cedulas/";
+            // Construir la URL completa
+            string url = $"{baseUrl}{cedula}/validate";
+
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    // Enviar solicitud GET
+                    HttpResponseMessage response = await client.GetAsync(url);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Leer la respuesta como texto
+                        string responseBody = await response.Content.ReadAsStringAsync();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+            }
+        }
+
     }
 }

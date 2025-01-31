@@ -9,6 +9,7 @@ namespace ComercialHermanosCastro.Domain.IRepositories
         Task<ClienteDto> CrearCliente(CrearClienteDto crearClienteDto);
          Task <List<ClienteDto>> GetCliente();
         Task< bool> EditarCliente(int id, ClienteDto clienteDto);
+        Task<bool> ValidaCedula(string cedula);
 
     }
 }

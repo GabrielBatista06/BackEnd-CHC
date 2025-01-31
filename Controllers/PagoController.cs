@@ -4,7 +4,9 @@ using ComercialHermanosCastro.Services;
 using ComercialHermanosCastro.Utils;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using static ComercialHermanosCastro.DTOs.PagosDiaContadoDto;
 
 namespace ComercialHermanosCastro.Controllers
 {
@@ -13,10 +15,12 @@ namespace ComercialHermanosCastro.Controllers
     public class PagoController : ControllerBase
     {
         private readonly IPagoService _pagoService;
+        private readonly IVentaService _ventaService;
 
-        public PagoController(IPagoService pagoService)
+        public PagoController(IPagoService pagoService, IVentaService ventaService)
         {
             _pagoService = pagoService;
+            _ventaService = ventaService;
         }
 
         [HttpPost]
@@ -67,6 +71,26 @@ namespace ComercialHermanosCastro.Controllers
             {
                 result.status = true;
                 result.value = await _pagoService.Resumen();
+            }
+            catch (Exception ex)
+            {
+
+                result.status = false;
+                result.msg = ex.Message;
+            }
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("pagosContados")]
+        public async Task<IActionResult> PagosContados(string? fechaInicio, string? fechaFin)
+        {
+            var result = new Response<PagosDiaContadoDto>();
+            try
+            {
+                result.status = true;
+                result.value = await _ventaService.PagosDiaContado(fechaInicio, fechaFin);
             }
             catch (Exception ex)
             {

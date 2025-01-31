@@ -29,5 +29,9 @@ namespace ComercialHermanosCastro.Services
             return await _clienteRepository.GetCliente();
         }
 
+        public async Task<bool> ValidaCedula(string cedula)
+        {
+            return await _clienteRepository.ValidaCedula(cedula);
+        }
     }
 }

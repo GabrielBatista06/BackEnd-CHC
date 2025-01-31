@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Oe3RIu8kOlQgPXNcQoJXRt9y6nQgofpozPVi2KPmly+sRpqwV7OmbVqFtAL0R2y+kqb/qDYecSyf9yr9haEWQA==",
+  "dgSpecHash": "uEuE9OX3Z7lpI+B4vBFjqGYL2ADWZtArvK9rYhfFz2zA9Q6SA/s5Nz23PP1GVCe2uzNbDWzSX/dKTfw6BQth5A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Angelo Santana\\Desktop\\Proyectos\\Comercial Hermanos castro\\BackEnd\\ComercialHermanosCastro.csproj",
+  "projectFilePath": "C:\\Users\\Angelo Santana\\Desktop\\carpeta con todo\\Proyectos\\Comercial Hermanos castro\\BackEnd\\ComercialHermanosCastro.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Angelo Santana\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\Angelo Santana\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",

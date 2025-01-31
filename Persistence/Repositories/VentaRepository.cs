@@ -12,6 +12,7 @@ using System.Drawing.Printing;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using static ComercialHermanosCastro.DTOs.PagosDiaContadoDto;
 
 namespace ComercialHermanosCastro.Persistence.Repositories
 {
@@ -123,7 +124,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
                 {
                     listResultado = await query.Where(o => o.NumeroDocumento == numeroVenta)
                                                                    .Include(dv => dv.DetalleVenta).ThenInclude(p => p.IdProductoNavigation)
-                                                                   . Include(o => o.IdClienteNavigation)
+                                                                   .Include(o => o.IdClienteNavigation)
                                                                    .ToListAsync();
                 }
 
@@ -153,6 +154,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
                     Include(v => v.IdVentaNavigation.IdClienteNavigation).
                     Where(o => o.IdVentaNavigation.FechaRegistro.Value.Date >= fecha_inicio.Date &&
                                  o.IdVentaNavigation.FechaRegistro.Value.Date <= fecha_fin.Date).ToListAsync();
+
             }
             catch (Exception)
             {
@@ -179,7 +181,7 @@ namespace ComercialHermanosCastro.Persistence.Repositories
         {
 
             //Ruta Imagen
-            const string imagen = @"C:\Users\Angelo Santana\Desktop\Proyectos\Comercial Hermanos castro\FrontEnd\src\assets\img\Logo.jpeg";
+            const string imagen = @"C:\Users\Angelo Santana\Desktop\carpeta con todo\Proyectos\Comercial Hermanos castro\FrontEnd\assets\img\Logo.jpeg";
 
             // Definir el contenido a imprimir
             Font font = new Font("Tahoma", 14);
@@ -285,5 +287,54 @@ namespace ComercialHermanosCastro.Persistence.Repositories
 
             return espacio;
         }
+
+        public async Task<List<PagosContadoDto>> PagosContados(string fechaInicio, string fechaFin)
+        {
+
+            IQueryable<Ventas> query = await _ventaGenericRepository.Consultar();
+            var listResultado = new List<Ventas>();
+            try
+            {
+                DateTime fecha_inicio = DateTime.ParseExact(fechaInicio, "dd/MM/yyyy", new CultureInfo("es-PE"));
+                DateTime fecha_fin = DateTime.ParseExact(fechaFin, "dd/MM/yyyy", new CultureInfo("es-PE"));
+
+                listResultado = await query.
+                    Include(v => v.IdClienteNavigation).
+                    Where(o => o.FechaRegistro.Value.Date >= fecha_inicio.Date &&
+                                 o.FechaRegistro.Value.Date <= fecha_fin.Date && o.TipoVenta == "contado").ToListAsync();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return _mapper.Map<List<PagosContadoDto>>(listResultado);
+
+        }
+
+        public async Task<PagosDiaContadoDto> PagosDiaContado(string fechaInicio, string fechaFin)
+        {
+
+            PagosDiaContadoDto pagosDiaContado = new PagosDiaContadoDto();
+            var result = await PagosContados(fechaInicio, fechaFin);
+            try
+            {
+                pagosDiaContado.PagosContado = result;
+                pagosDiaContado.TotalCobrosGeneral = result.Select(o => o.TotalVenta ?? 0).Sum().ToString("#,##0.00", CultureInfo.InvariantCulture);
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return pagosDiaContado;
+        }
+
+
+
     }
 }

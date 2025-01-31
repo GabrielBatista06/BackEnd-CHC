@@ -52,9 +52,14 @@ namespace ComercialHermanosCastro.Controllers
             //    return BadRequest(ex.Message);
             //}
             var result = new Response<ClienteDto>();
-
+            var resultCed = await _clienteService.ValidaCedula(cliente.Cedula);
             try
             {
+                if (!resultCed)
+                {
+                    return BadRequest(new {status = false,  message = "Cédula Invalida" });
+
+                }
                 result.status = true;
                 result.value = await _clienteService.CrearCliente(cliente);
             }

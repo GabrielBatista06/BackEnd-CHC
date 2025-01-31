@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Angelo Santana\\Desktop\\Proyectos\\Comercial Hermanos castro\\BackEnd\\ComercialHermanosCastro.csproj": {}
+    "C:\\Users\\Angelo Santana\\Desktop\\carpeta con todo\\Proyectos\\Comercial Hermanos castro\\BackEnd\\ComercialHermanosCastro.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Angelo Santana\\Desktop\\Proyectos\\Comercial Hermanos castro\\BackEnd\\ComercialHermanosCastro.csproj": {
+    "C:\\Users\\Angelo Santana\\Desktop\\carpeta con todo\\Proyectos\\Comercial Hermanos castro\\BackEnd\\ComercialHermanosCastro.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Angelo Santana\\Desktop\\Proyectos\\Comercial Hermanos castro\\BackEnd\\ComercialHermanosCastro.csproj",
+        "projectUniqueName": "C:\\Users\\Angelo Santana\\Desktop\\carpeta con todo\\Proyectos\\Comercial Hermanos castro\\BackEnd\\ComercialHermanosCastro.csproj",
         "projectName": "ComercialHermanosCastro",
-        "projectPath": "C:\\Users\\Angelo Santana\\Desktop\\Proyectos\\Comercial Hermanos castro\\BackEnd\\ComercialHermanosCastro.csproj",
+        "projectPath": "C:\\Users\\Angelo Santana\\Desktop\\carpeta con todo\\Proyectos\\Comercial Hermanos castro\\BackEnd\\ComercialHermanosCastro.csproj",
         "packagesPath": "C:\\Users\\Angelo Santana\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Angelo Santana\\Desktop\\Proyectos\\Comercial Hermanos castro\\BackEnd\\obj\\",
+        "outputPath": "C:\\Users\\Angelo Santana\\Desktop\\carpeta con todo\\Proyectos\\Comercial Hermanos castro\\BackEnd\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
